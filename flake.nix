@@ -1,115 +1,132 @@
-    {
-      description = "Flake for using qmk firmware";
+{
+  description = "Flake for using qmk firmware";
 
-      inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
-        nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-24.11";
-        flake-utils.url = "github:numtide/flake-utils";
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-24.11";
+    flake-utils.url = "github:numtide/flake-utils";
 
-      };
+    # QMK sources
+    qmk-firmware = {
+      flake = false;
+      url = "github:qmk/qmk_firmware";
+    };
 
-      outputs = {
-        self,
-        ...
-      } @ inputs: inputs.flake-utils.lib.eachDefaultSystem (system:
-      let
-        # Generic pkgs import
-        pkgs = inputs.nixpkgs.legacyPackages.${system};
+    # QMK Submodules
+    qmk-chibios = {
+      repo = "ChibiOS";
+      owner = "qmk";
+      type = "github";
+      ref = "master";
+      flake = false;
+    };
+    qmk-chibios-contrib = {
+      repo = "ChibiOS-Contrib";
+      owner = "qmk";
+      type = "github";
+      ref = "master";
+      flake = false;
+    };
+    qmk-googletest = {
+      repo = "googletest";
+      owner = "qmk";
+      type = "github";
+      flake = false;
+    };
+    qmk-lufa = {
+      repo = "lufa";
+      owner = "qmk";
+      type = "github";
+      flake = false;
+    };
+    qmk-vusb = {
+      repo = "v-usb";
+      owner = "qmk";
+      type = "github";
+      flake = false;
+    };
+    qmk-printf = {
+      repo = "printf";
+      owner = "qmk";
+      type = "github";
+      flake = false;
+    };
+    qmk-pico-sdk = {
+      repo = "pico-sdk";
+      owner = "qmk";
+      type = "github";
+      flake = false;
+    };
+    qmk-lvgl = {
+      repo = "lvgl";
+      owner = "qmk";
+      type = "github";
+      ref = "release/v8.2";
+      flake = false;
+    };
+  };
 
-        # Config settings for qmk, so this repo works as the qmk overlay
-        qmkConfig = pkgs.writeTextFile {
-          name = "qmk-config.ini";
-          text = ''
-            [user]
-            overlay_dir = ${self}
-          '';
-        };
+  outputs = {
+    self,
+    ...
+  } @ inputs: inputs.flake-utils.lib.eachDefaultSystem (system:
+  let
+    # Generic pkgs import
+    pkgs = inputs.nixpkgs.legacyPackages.${system};
 
-        qmkFirmware = pkgs.stdenv.mkDerivation {
-          name = "qmkFirmware";
-          src = pkgs.fetchFromGitHub {
-            owner = "qmk";
-            repo = "qmk_firmware";
-            rev = "80c90a6952f412defa6b3709a59507b2c76f3863";
-            hash = "sha256-67dGA8IDDRWi+F9m2BeeJZKqxLZKBnQcVuK/5AT6L7w=";
-            fetchSubmodules = true;
-          };
-          phases = [ "unpackPhase" "installPhase" ];
-          buildInputs = [ pkgs.rsync ];
-          installPhase = ''
-            mkdir --parents $out
-            rsync --archive $src/ $out
-          '';
-        };
+    # Config settings for qmk, so this repo works as the qmk overlay
+    qmkConfig = pkgs.writeTextFile {
+      name = "qmk-config.ini";
+      text = ''
+        [user]
+        overlay_dir = ${self}
+      '';
+    };
 
-        # Default list of keyboards
-        keyboards = [
-          "crkbd"
-        ];
+    qmkFirmware = pkgs.callPackage ./qmkFirmware.nix {
+      # Pass the modules and main firmware here
+      inherit (inputs)
+        qmk-firmware
+        qmk-chibios
+        qmk-chibios-contrib
+        qmk-googletest
+        qmk-lufa
+        qmk-vusb
+        qmk-printf
+        qmk-pico-sdk
+        qmk-lvgl
+        ;
+    };
 
-        # Default user to be used in this qmk
-        keymap = "sbp";
+    # Default user to be used in this qmk
+    keymap = "sbp";
 
-        # Config set
-      in {
+    # Config set
+  in {
 
-        # Build keyboard as packages!
-        # build with `nix build '.<keyboard>?submodules=1'`
-        # We use the same package template every keymap/keyboard combo
-        packages = { inherit qmkFirmware; } // (
-          builtins.listToAttrs (builtins.map (
-            kb: {
-              name = kb;
-              value = pkgs.stdenv.mkDerivation {
-                name = kb;
-                src = ./.;
-                phases = [ "buildPhase" ];
-                buildInputs = [
-                  pkgs.qmk
-                  qmkFirmware
-                ];
-                QMK_FIRMWARE = qmkFirmware;
-                buildPhase = ''
-                  make -C $src BUILD_DIR=`pwd`/.build COPY=echo -j8 ${kb}:${keymap}
-                  mkdir $out
-                  cp -r .build/* $out/
-                '';
-              };
-            }
-        ) keyboards));
+    # Enter the devshell with the qmk command, configured to liking
+    devShell = pkgs.mkShell {
 
-        # Or just enter devshell with the qmk executable ready; `nix develop`
-        #
-        # Build dir is taken as a param of `build` and `flash`,
-        # e.g. to flash with the output of `nix build '.?submodules=1'` do `flash result`.
-        devShell = pkgs.mkShell {
+      # QMK environment variables, mostly need this repo and a full qmk_firmware
+      QMK_HOME = qmkFirmware;
+      QMK_FIRMWARE = qmkFirmware;
+      KEYMAP = keymap;
 
-          # QMK environment variables, mostly need this repo and a full qmk_firmware
-          QMK_HOME = qmkFirmware;
-          QMK_FIRMWARE = qmkFirmware;
-          KEYMAP = keymap;
-          buildInputs = [
-            qmkFirmware
-            pkgs.qmk
-          ];
-          packages = [
-            pkgs.qmk
-          ];
-          shellHook = ''
+      # Required packages for functioning here
+      buildInputs = [
+        qmkFirmware
+        qmkConfig
+        pkgs.qmk
+      ];
+      packages = [
+        pkgs.qmk
+      ];
 
-            # Build and flash commands
-            build() {
-              BUILD_DIR=''${1:-.build}
-              make -C . BUILD_DIR=$BUILD_DIR COPY=echo -j8 $KEYBOARD:$KEYMAP
-            }
-            flash() {
-              BUILD_DIR=''${1:-.build}
-              make -C . BUILD_DIR=$BUILD_DIR COPY=echo -j8 $KEYBOARD:$KEYMAP:flash
-            }
-
-            # Override QMK to always use the config file from this flake
-            alias qmk='${pkgs.qmk}/bin/qmk --config-file ${qmkConfig}'
-          '';
-        };
-      });
-    }
+      # Shell overrides
+      shellHook = ''
+        # Override QMK command to always use the config file from this flake
+        alias qmk='${pkgs.qmk}/bin/qmk --config-file ${qmkConfig}'
+      '';
+    };
+  });
+}
