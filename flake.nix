@@ -115,7 +115,6 @@
       # Required packages for functioning here
       buildInputs = [
         qmkFirmware
-        qmkConfig
         pkgs.qmk
       ];
       packages = [
