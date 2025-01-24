@@ -71,6 +71,10 @@
     ...
   } @ inputs: inputs.flake-utils.lib.eachDefaultSystem (system:
   let
+
+    # Default user to be used in this qmk
+    keymap = "sbp";
+
     # Generic pkgs import
     pkgs = inputs.nixpkgs.legacyPackages.${system};
 
@@ -79,6 +83,7 @@
       name = "qmk-config.ini";
       text = ''
         [user]
+        keymap = ${keymap}
         overlay_dir = ${self}
       '';
     };
@@ -97,9 +102,6 @@
         qmk-lvgl
         ;
     };
-
-    # Default user to be used in this qmk
-    keymap = "sbp";
 
     # Config set
   in {
