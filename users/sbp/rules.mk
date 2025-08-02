@@ -33,7 +33,7 @@ WPM_ENABLE ?= yes       # Get WPM reports as you type
 SRC += sbp.c
 
 # Macros
-SRC += bb-macro.c
+SRC += sbp-macros.c
 
 # Audio code
 ifeq ($(strip $(AUDIO_ENABLE)), yes)

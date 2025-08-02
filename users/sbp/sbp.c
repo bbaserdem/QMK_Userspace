@@ -113,8 +113,7 @@ void userspace_transport_sync(bool force_sync) {
 /* This code runs before anything is started.
  * Good for early hardware setup
  */
-__attribute__ ((weak)) void keyboard_pre_init_keymap(void) {}
-__attribute__ ((weak)) void keyboard_pre_init_user(void) {
+SBP_WEAK_HOOK_VOID(keyboard_pre_init, (void)) {
     // Keymap specific stuff
     keyboard_pre_init_keymap();
 }
@@ -125,8 +124,7 @@ __attribute__ ((weak)) void keyboard_pre_init_user(void) {
 /* This code runs once midway thru the firmware process.
  * So far, sets the base layer and fixes unicode mode
  */
-__attribute__ ((weak)) void matrix_init_keymap(void) {}
-void matrix_init_user (void) {
+SBP_WEAK_HOOK_VOID(matrix_init, (void)) {
     // Keymap specific things
     matrix_init_keymap();
 }
@@ -137,8 +135,7 @@ void matrix_init_user (void) {
 /* This code runs after anything is started.
  * Good for late hardware setup, like setting up layer specifications
  */
-__attribute__ ((weak)) void keyboard_post_init_keymap(void) {}
-__attribute__ ((weak)) void keyboard_post_init_user(void) {
+SBP_WEAK_HOOK_VOID(keyboard_post_init, (void)) {
     // Fix beginning base layer, in case some other firmware was flashed
     //  set_single_persistent_default_layer(_BASE);
 
@@ -183,8 +180,7 @@ __attribute__ ((weak)) void keyboard_post_init_user(void) {
 \*---------------------------*/
 /* This gets called at the end of all qmk processing
  */
-__attribute__ ((weak)) void housekeeping_task_keymap(void) {}
-void housekeeping_task_user(void) {
+SBP_WEAK_HOOK_VOID(housekeeping_task, (void)) {
     // Check eeprom every now and then
     static userspace_config_t prev_userspace_config;
     static fast_timer_t throttle_timer = 0;
@@ -242,11 +238,7 @@ void eeconfig_init_user(void) {
  *  Macro definitions
  *  Audio hooks
  */
-__attribute__ ((weak))
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    return true;
-}
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+SBP_WEAK_HOOK_RETURN(process_record, bool, (uint16_t keycode, keyrecord_t *record), true) {
     // Return after running through all individual hooks
     return
         process_record_keymap(keycode, record)  &&
@@ -266,8 +258,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  * I used to check for layer switching here, but layer state is better used.
  * Try to not put anything here; as it runs hundreds time per second-ish
  */
-__attribute__ ((weak)) void matrix_scan_keymap(void) { }
-void matrix_scan_user (void) {
+SBP_WEAK_HOOK_VOID(matrix_scan, (void)) {
     // Keymap specific scan function
     matrix_scan_keymap();
 }
@@ -278,11 +269,7 @@ void matrix_scan_user (void) {
 /* This code runs after every layer change
  * State represents the new layer state.
  */
-__attribute__ ((weak))
-layer_state_t layer_state_set_keymap (layer_state_t state) {
-    return state;
-}
-layer_state_t layer_state_set_user(layer_state_t state) {
+SBP_WEAK_HOOK_RETURN(layer_state_set, layer_state_t, (layer_state_t state), state) {
     // Keymap layer state setting
     state = layer_state_set_keymap(state);
     // For underglow stuff
@@ -302,11 +289,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 \*-----------------------------*/
 /* This code runs after every time default base layer is changed
  */
-__attribute__ ((weak))
-layer_state_t default_layer_state_set_keymap (layer_state_t state) {
-    return state;
-}
-layer_state_t default_layer_state_set_user(layer_state_t state) {
+SBP_WEAK_HOOK_RETURN(default_layer_state_set, layer_state_t, (layer_state_t state), state) {
     // Keymap level code
     state = default_layer_state_set_keymap(state);
     return state;
@@ -318,8 +301,7 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 /* Code for LED indicators
  * I'm not sure when exactly does this code run
  */
-__attribute__ ((weak)) void led_set_keymap(uint8_t usb_led) {}
-void led_set_user(uint8_t usb_led) {
+SBP_WEAK_HOOK_VOID(led_set, (uint8_t usb_led)) {
     led_set_keymap(usb_led);
 }
 
@@ -328,16 +310,15 @@ void led_set_user(uint8_t usb_led) {
 \*-----------------*/
 /* Suspend stuff here, mostly for the rgb lighting.
  */
-__attribute__ ((weak)) void suspend_power_down_keymap (void) { }
-void suspend_power_down_user(void) {
+SBP_WEAK_HOOK_VOID(suspend_power_down, (void)) {
     suspend_power_down_keymap();
     // RGB matrix sleep hook
 #   ifdef RGB_MATRIX_ENABLE
     suspend_power_down_rgbmatrix();
 #   endif // RGB_MATRIX_ENABLE
 }
-__attribute__ ((weak)) void suspend_wakeup_init_keymap (void) { }
-void suspend_wakeup_init_user(void) {
+
+SBP_WEAK_HOOK_VOID(suspend_wakeup_init, (void)) {
     suspend_wakeup_init_keymap();
     // RGB matrix sleep hook
 #   ifdef RGB_MATRIX_ENABLE
@@ -350,8 +331,7 @@ void suspend_wakeup_init_user(void) {
 \*------------------*/
 /* Shutdown stuff here; for when entering bootmode.
  */
-__attribute__ ((weak)) void shutdown_keymap (void) { }
-void shutdown_user(void) {
+SBP_WEAK_HOOK_VOID(shutdown, (void)) {
     // Underglow LED hook on boot
 #   ifdef RGBLIGHT_ENABLE
     shutdown_rgblight();

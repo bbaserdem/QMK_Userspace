@@ -12,7 +12,7 @@
 #include "sbp-layout.h"
 
 // Macros to use, this has base level code so not affected by enabled features
-#include "sbp-macro.h"
+#include "sbp-macros.h"
 // Audio from onboard speakers
 #ifdef AUDIO_ENABLE
 
@@ -105,7 +105,12 @@ extern userspace_runtime_t  userspace_runtime;
 extern userspace_config_t   userspace_config;
 
 // Macro to reduce boilerplate for weak function definitions
-#define SBP_WEAK_HOOK(name, rettype, params, default_return) \
+#define SBP_WEAK_HOOK_VOID(name, params) \
+    __attribute__((weak)) void name##_keymap params; \
+    __attribute__((weak)) void name##_keymap params { } \
+    void name##_user params
+
+#define SBP_WEAK_HOOK_RETURN(name, rettype, params, default_return) \
     __attribute__((weak)) rettype name##_keymap params; \
     __attribute__((weak)) rettype name##_keymap params { return default_return; } \
     rettype name##_user params

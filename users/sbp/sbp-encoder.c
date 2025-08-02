@@ -1,6 +1,7 @@
 /* Copyright 2021 Batuhan Başerdem
  * <baserdem.batuhan@gmail.com> @bbaserdem
  */
+#pragma GCC optimize("Os")
 #include "sbp-encoder.h"
 
 // Need memcpy and memcmp from string.h along with transfer stuff
