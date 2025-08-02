@@ -47,10 +47,6 @@ enum userspace_layers {
 #define xxx4xxx KC_NO,  KC_NO,  KC_NO,  KC_NO
 #define xxx5xxx KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO
 #define xxx6xxx KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO
-#define xxx1xxx KC_NO
-#define xxx3xxx KC_NO,  KC_NO,  KC_NO
-#define xxx5xxx KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO
-#define xxx6xxx KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO
 
 // MOD-tap definitions
 // Regular keymap, left side

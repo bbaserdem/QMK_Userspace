@@ -20,6 +20,12 @@
 userspace_config_t userspace_config;
 userspace_runtime_t userspace_runtime;
 
+// EEPROM wear leveling
+static bool config_dirty = false;
+void mark_config_dirty(void) { 
+    config_dirty = true; 
+}
+
 /*---------------------------------*\
 |*----SPLIT KEYBOARD TRANSPORT-----*|
 \*---------------------------------*/
@@ -65,29 +71,37 @@ void userspace_transport_sync(bool force_sync) {
         // Keep track of the last state
         static userspace_config_t last_userspace_config;
         static userspace_runtime_t last_userspace_runtime;
-        bool needs_sync = false;
+        static fast_timer_t last_sync_timer = 0;
+        
+        // Throttle RPC bursts (20ms minimum gap)
+        if (!force_sync && timer_elapsed_fast(last_sync_timer) < 20) {
+            return;
+        }
 
         // Check if the config values are different
-        if (memcmp(&transport_userspace_config, &last_userspace_config, sizeof(transport_userspace_config))) {
-            needs_sync = true;
+        bool config_needs_sync = memcmp(&transport_userspace_config, &last_userspace_config, sizeof(transport_userspace_config));
+        if (config_needs_sync) {
             memcpy(&last_userspace_config, &transport_userspace_config, sizeof(transport_userspace_config));
-        }
-        // Perform the sync if requested
-        if (needs_sync || force_sync) {
-            transaction_rpc_send(RPC_ID_CONFIG_SYNC, sizeof(transport_userspace_config), &transport_userspace_config);
-            needs_sync = false;
         }
 
         // Check if the runtime values are different
-        if (memcmp(&transport_userspace_runtime, &last_userspace_runtime, sizeof(transport_userspace_runtime))) {
-            needs_sync = true;
+        bool runtime_needs_sync = memcmp(&transport_userspace_runtime, &last_userspace_runtime, sizeof(transport_userspace_runtime));
+        if (runtime_needs_sync) {
             memcpy(&last_userspace_runtime, &transport_userspace_runtime, sizeof(transport_userspace_runtime));
         }
 
-        // Perform the sync if requested
-        if (needs_sync || force_sync) {
+        // Perform the syncs independently
+        if (config_needs_sync || force_sync) {
+            transaction_rpc_send(RPC_ID_CONFIG_SYNC, sizeof(transport_userspace_config), &transport_userspace_config);
+        }
+
+        if (runtime_needs_sync || force_sync) {
             transaction_rpc_send(RPC_ID_RUNTIME_SYNC, sizeof(transport_userspace_runtime), &transport_userspace_runtime);
-            needs_sync = false;
+        }
+        
+        // Update sync timer if we sent anything
+        if (config_needs_sync || runtime_needs_sync || force_sync) {
+            last_sync_timer = timer_read_fast();
         }
     }
 }
@@ -186,10 +200,11 @@ void housekeeping_task_user(void) {
     if (timer_elapsed_fast(throttle_timer) >= HOUSEKEEPING_THROTTLE_INTERVAL_MS) {
         // Refresh timer
         throttle_timer = timer_read_fast();
-        // Check userspace config for eeprom updates
-        if (memcmp(&prev_userspace_config, &userspace_config, sizeof(userspace_config))) {
+        // Check userspace config for eeprom updates (wear leveling)
+        if (config_dirty || memcmp(&prev_userspace_config, &userspace_config, sizeof(userspace_config))) {
             memcpy(&prev_userspace_config, &userspace_config, sizeof(userspace_config));
             eeconfig_update_user(userspace_config.raw);
+            config_dirty = false;
         }
     }
 

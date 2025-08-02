@@ -1,8 +1,10 @@
 # Copyright 2025 Batuhan Başerdem
 # <baserdem.batuhan@gmail.com> @bbaserdem
 
-# Common compilation flags
+# Common compilation flags (guard LTO for compatibility)
+ifneq ($(MCU),RP2040)
 LTO_ENABLE = yes
+endif
 
 # These should be enabled in all boards
 EXTRAKEY_ENABLE = yes		# OS signals like volume control

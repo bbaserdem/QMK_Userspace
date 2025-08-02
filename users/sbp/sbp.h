@@ -49,25 +49,71 @@ typedef union {
 } userspace_runtime_t;
 
 // For encoder state
+typedef struct __attribute__((packed)) {
+    uint8_t e0base  :4; // ( 4:0) The encoder state on most layers; regular function
+    uint8_t e1base  :4; // ( 8:1) 9 states for this; 4 bits
+    uint8_t e0point :2; // (10:1) The encoder state on mouse layer; moves pointer
+    uint8_t e1point :2; // (12:1) 4 states for this; 2 bits
+    uint8_t e0rgb   :4; // (16:2) The encoder state on media layer; controls light
+    uint8_t e1rgb   :4; // (20:2) 5 states for this; 3 bits but 4 is better
+    uint8_t layout  :2; // (22:2) Stores keymap layout; 3 states is good on 2 bits
+    uint16_t       :10; // (32:3) Padding here, free space for 10 more bits
+} userspace_config_bits_t;
+
 typedef union {
     uint32_t raw;
-    struct {
-        uint8_t e0base  :4; // ( 4:0) The encoder state on most layers; regular function
-        uint8_t e1base  :4; // ( 8:1) 9 states for this; 4 bits
-        uint8_t e0point :2; // (10:1) The encoder state on mouse layer; moves pointer
-        uint8_t e1point :2; // (12:1) 4 states for this; 2 bits
-        uint8_t e0rgb   :4; // (16:2) The encoder state on media layer; controls light
-        uint8_t e1rgb   :4; // (20:2) 5 states for this; 3 bits but 4 is better
-        uint8_t layout  :2; // (22:2) Stores keymap layout; 3 states is good on 2 bits
-        uint16_t       :10; // (32:3) Padding here, free space for 10 more bits
-    };
+    userspace_config_bits_t bits;
 } userspace_config_t;
+
+// Compile-time size checks for data structure portability
+_Static_assert(sizeof(userspace_config_t) == 4, "userspace_config_t size mismatch");
+_Static_assert(sizeof(userspace_runtime_t) == 4, "userspace_runtime_t size mismatch");
+
+// Encoder mode constants
+enum encoder_modes_base {
+    ENC_MODE_VOLUME = 0,
+    ENC_MODE_SONG = 1,
+    ENC_MODE_SINK = 2,
+    ENC_MODE_SRC_VOL = 3,
+    ENC_MODE_SOURCE = 4,
+    ENC_MODE_ARROW_LR = 5,
+    ENC_MODE_ARROW_UD = 6,
+    ENC_MODE_PAGE_UD = 7,
+    ENC_MODE_ERASE = 8,
+    ENC_MODE_BASE_COUNT = 9
+};
+
+enum encoder_modes_pointer {
+    ENC_MODE_LATERAL = 0,
+    ENC_MODE_VERTICAL = 1,
+    ENC_MODE_SCR_VER = 2,
+    ENC_MODE_SCR_LAT = 3,
+    ENC_MODE_POINTER_COUNT = 4
+};
+
+enum encoder_modes_rgb {
+    ENC_MODE_ANI_MODE = 0,
+    ENC_MODE_HUE = 1,
+    ENC_MODE_SATURATION = 2,
+    ENC_MODE_VALUE = 3,
+    ENC_MODE_SPEED = 4,
+    ENC_MODE_RGB_COUNT = 5
+};
 
 // Broadcast us, so everyone else can use us
 extern userspace_runtime_t  userspace_runtime;
 extern userspace_config_t   userspace_config;
 
+// Macro to reduce boilerplate for weak function definitions
+#define SBP_WEAK_HOOK(name, rettype, params, default_return) \
+    __attribute__((weak)) rettype name##_keymap params; \
+    __attribute__((weak)) rettype name##_keymap params { return default_return; } \
+    rettype name##_user params
+
 // Function definitions that can be accessed through keymap level code
+
+// EEPROM wear leveling function
+void mark_config_dirty(void);
 
 // Runs before all initialization
 void keyboard_pre_init_keymap(void);

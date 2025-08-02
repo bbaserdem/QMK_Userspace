@@ -133,6 +133,107 @@ The `avrdude` command interacts with catalina bootloader.
 The shell call after the `-P` flag auto finds the port that the pro micro connects to.
 The last few arguments are some jumpers apparently.
 
+# Code Architecture
+
+The userspace code is organized in a modular way with conditional compilation for different features:
+
+```mermaid
+graph TD
+    %% QMK System Level
+    QMK[QMK Core Firmware] --> BOOT[System Boot]
+    BOOT --> PRE_INIT[keyboard_pre_init_user]
+    PRE_INIT --> MATRIX_INIT[matrix_init_user]
+    MATRIX_INIT --> POST_INIT[keyboard_post_init_user]
+    
+    %% Core userspace files
+    subgraph "Core Userspace (sbp.h/sbp.c)"
+        CONFIG[userspace_config_t<br/>Persistent config]
+        RUNTIME[userspace_runtime_t<br/>Runtime state]
+        TRANSPORT[Split keyboard sync]
+        HOUSEKEEP[housekeeping_task_user<br/>EEPROM & sync]
+    end
+    
+    %% Feature modules (conditionally compiled)
+    subgraph "Feature Modules"
+        AUDIO[sbp-audio.c<br/>AUDIO_ENABLE]
+        ENCODER[sbp-encoder.c<br/>ENCODER_ENABLE] 
+        RGB_LIGHT[sbp-rgb-light.c<br/>RGBLIGHT_ENABLE]
+        RGB_MATRIX[sbp-rgb-matrix.c<br/>RGB_MATRIX_ENABLE]
+        OLED[sbp-oled.c<br/>OLED_ENABLE]
+        OLED_EXTRA[sbp-oled-extra.c<br/>CTPC board]
+        MACROS[sbp-macros.c<br/>Custom keycodes]
+    end
+    
+    %% Layout system
+    subgraph "Layout System"
+        KEYCODES[sbp-keycodes.h<br/>Custom keycodes enum]
+        LAYOUT[sbp-layout.h<br/>Layer definitions]
+        UNICODE[Unicode mappings<br/>Turkish/Greek chars]
+    end
+    
+    %% Main event flow
+    POST_INIT --> INIT_FEATURES[Initialize enabled features]
+    INIT_FEATURES --> AUDIO
+    INIT_FEATURES --> RGB_LIGHT
+    INIT_FEATURES --> ENCODER
+    INIT_FEATURES --> OLED
+    
+    %% Runtime event handling
+    KEYPRESS[Key Press Event] --> PROCESS_RECORD[process_record_user]
+    PROCESS_RECORD --> MACROS
+    PROCESS_RECORD --> AUDIO
+    PROCESS_RECORD --> ENCODER
+    
+    LAYER_CHANGE[Layer Change] --> LAYER_STATE[layer_state_set_user]
+    LAYER_STATE --> RGB_LIGHT
+    LAYER_STATE --> AUDIO
+    
+    SCAN[Matrix Scan] --> MATRIX_SCAN[matrix_scan_user]
+    MATRIX_SCAN --> HOUSEKEEP
+    
+    %% Split keyboard communication
+    TRANSPORT --> SYNC_CONFIG[Sync config to secondary]
+    TRANSPORT --> SYNC_RUNTIME[Sync runtime to secondary]
+    HOUSEKEEP --> TRANSPORT
+    
+    %% Configuration and build system
+    subgraph "Build Configuration"
+        RULES[rules.mk<br/>Feature enables]
+        CONF[config.h<br/>Hardware settings]
+    end
+    
+    RULES --> INIT_FEATURES
+    CONF --> INIT_FEATURES
+    
+    %% Keymap integration
+    KEYMAP[Individual Keyboard<br/>Keymaps] --> PROCESS_RECORD
+    KEYMAP --> LAYER_STATE
+    KEYMAP --> MATRIX_SCAN
+    
+    %% Power management
+    SUSPEND[Suspend Event] --> SUSPEND_HANDLER[suspend_power_down_user]
+    SUSPEND_HANDLER --> RGB_MATRIX
+    WAKEUP[Wakeup Event] --> WAKEUP_HANDLER[suspend_wakeup_init_user]
+    WAKEUP_HANDLER --> RGB_MATRIX
+    
+    SHUTDOWN[Shutdown Event] --> SHUTDOWN_HANDLER[shutdown_user]
+    SHUTDOWN_HANDLER --> RGB_LIGHT
+    SHUTDOWN_HANDLER --> RGB_MATRIX
+
+    %% Style definitions
+    classDef coreModule fill:#1a1a2e,stroke:#eee,color:#eee
+    classDef featureModule fill:#16213e,stroke:#0f3460,color:#eee
+    classDef layoutModule fill:#0f3460,stroke:#533483,color:#eee
+    classDef configModule fill:#533483,stroke:#7b2cbf,color:#eee
+    classDef eventFlow fill:#7b2cbf,stroke:#c77dff,color:#eee
+    
+    class CONFIG,RUNTIME,TRANSPORT,HOUSEKEEP coreModule
+    class AUDIO,ENCODER,RGB_LIGHT,RGB_MATRIX,OLED,OLED_EXTRA,MACROS featureModule
+    class KEYCODES,LAYOUT,UNICODE layoutModule
+    class RULES,CONF configModule
+    class KEYPRESS,LAYER_CHANGE,SCAN,SUSPEND,WAKEUP,SHUTDOWN eventFlow
+```
+
 # Layout
 
 My personal layout is mostly inspired by the

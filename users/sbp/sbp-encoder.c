@@ -78,6 +78,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                         rgb_matrix_decrease_speed_noeeprom();
                     }
                     break;
+                default:
+                    return false;
             }
             break;
 #       endif // RGB_MATRIX_ENABLE
@@ -120,6 +122,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                         tap_code(KC_WH_L);
                     }
                     break;
+                default:
+                    return false;
             }
             break;
 #       endif // MOUSEKEY_ENABLE
@@ -196,6 +200,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                         tap_code16(KC_BSPC);
                     }
                     break;
+                default:
+                    return false;
             }
             break;
     }
@@ -325,74 +331,74 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
     }
 
     // Activate encoder function of button
-    if ((encoder_index >= 0) & (!record->event.pressed)) {
+    if ((encoder_index >= 0) && (!record->event.pressed)) {
         // If shifted, move mode one point forward
         if (get_mods() & MOD_MASK_SHIFT) {
             switch (get_highest_layer(layer_state)) {
 #               ifdef RGB_MATRIX_ENABLE
                 case _KEYB:
                     if (encoder_index == 0) {
-                        userspace_config.e0rgb = (userspace_config.e0rgb + 1) % 5;
+                        userspace_config.e0rgb = (userspace_config.e0rgb + 1) % ENC_MODE_RGB_COUNT;
                     } else {
-                        userspace_config.e1rgb = (userspace_config.e1rgb + 1) % 5;
+                        userspace_config.e1rgb = (userspace_config.e1rgb + 1) % ENC_MODE_RGB_COUNT;
                     }
                     break;
 #               endif // RGB_MATRIX_ENABLE
 #               ifdef MOUSEKEY_ENABLE
                 case _MOUS:
                     if (encoder_index == 0) {
-                        userspace_config.e0point = (userspace_config.e0point + 1) % 4;
+                        userspace_config.e0point = (userspace_config.e0point + 1) % ENC_MODE_POINTER_COUNT;
                     } else {
-                        userspace_config.e1point = (userspace_config.e1point + 1) % 4;
+                        userspace_config.e1point = (userspace_config.e1point + 1) % ENC_MODE_POINTER_COUNT;
                     }
                     break;
 #               endif // MOUSEKEY_ENABLE
                 default:
                     if (encoder_index == 0) {
-                        userspace_config.e0base = (userspace_config.e0base + 1) % 9;
+                        userspace_config.e0base = (userspace_config.e0base + 1) % ENC_MODE_BASE_COUNT;
                     } else {
-                        userspace_config.e1base = (userspace_config.e1base + 1) % 9;
+                        userspace_config.e1base = (userspace_config.e1base + 1) % ENC_MODE_BASE_COUNT;
                     }
                     break;
             }
-            // Update which config we are at now
-            eeconfig_update_user(userspace_config.raw);
+            // Mark config as dirty for throttled EEPROM write
+            mark_config_dirty();
         // If ctrl is active, move mode one point backwards
         } else if (get_mods() & MOD_MASK_CTRL) {
             switch (get_highest_layer(layer_state)) {
 #               ifdef RGB_MATRIX_ENABLE
                 case _KEYB:
                     if (encoder_index == 0) {
-                        userspace_config.e0rgb = (userspace_config.e0rgb + 5 - 1) % 5;
+                        userspace_config.e0rgb = (userspace_config.e0rgb + ENC_MODE_RGB_COUNT - 1) % ENC_MODE_RGB_COUNT;
                     } else {
-                        userspace_config.e1rgb = (userspace_config.e1rgb + 5 - 1) % 5;
+                        userspace_config.e1rgb = (userspace_config.e1rgb + ENC_MODE_RGB_COUNT - 1) % ENC_MODE_RGB_COUNT;
                     }
                     break;
 #               endif // RGB_MATRIX_ENABLE
 #               ifdef MOUSEKEY_ENABLE
                 case _MOUS:
                     if (encoder_index == 0) {
-                        userspace_config.e0point = (userspace_config.e0point + 4 - 1) % 4;
+                        userspace_config.e0point = (userspace_config.e0point + ENC_MODE_POINTER_COUNT - 1) % ENC_MODE_POINTER_COUNT;
                     } else {
-                        userspace_config.e1point = (userspace_config.e1point + 4 - 1) % 4;
+                        userspace_config.e1point = (userspace_config.e1point + ENC_MODE_POINTER_COUNT - 1) % ENC_MODE_POINTER_COUNT;
                     }
                     break;
 #               endif // MOUSEKEY_ENABLE
                 default:
                     if (encoder_index == 0) {
-                        userspace_config.e0base = (userspace_config.e0base + 9 - 1) % 9;
+                        userspace_config.e0base = (userspace_config.e0base + ENC_MODE_BASE_COUNT - 1) % ENC_MODE_BASE_COUNT;
                     } else {
-                        userspace_config.e1base = (userspace_config.e1base + 9 - 1) % 9;
+                        userspace_config.e1base = (userspace_config.e1base + ENC_MODE_BASE_COUNT - 1) % ENC_MODE_BASE_COUNT;
                     }
                     break;
             }
-            // Update which config we are at now
-            eeconfig_update_user(userspace_config.raw);
+            // Mark config as dirty for throttled EEPROM write
+            mark_config_dirty();
         // If meta is active, reset the encoder states
         } else if (get_mods() & MOD_MASK_GUI) {
             reset_encoder_state();
-            // Update which config we are at now
-            eeconfig_update_user(userspace_config.raw);
+            // Mark config as dirty for throttled EEPROM write
+            mark_config_dirty();
         // If nothing else; just perform the click action
         } else {
             encoder_click_action(encoder_index);
