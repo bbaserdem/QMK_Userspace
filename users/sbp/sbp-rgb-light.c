@@ -16,52 +16,30 @@
 // Define the layer switching code
 
 // For full layers, color left and right of the strip
-const rgblight_segment_t PROGMEM sbp_game_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {RGBLIGHT_LEFT_BEG, RGBLIGHT_LEFT_NUM, HSV_PURPLE},
-    {RGBLIGHT_RIGHT_BEG, RGBLIGHT_RIGHT_NUM, HSV_PURPLE}
-);
-const rgblight_segment_t PROGMEM sbp_char_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {RGBLIGHT_LEFT_BEG, RGBLIGHT_LEFT_NUM, HSV_MAGENTA},
-    {RGBLIGHT_RIGHT_BEG, RGBLIGHT_RIGHT_NUM, HSV_MAGENTA}
-);
-const rgblight_segment_t PROGMEM sbp_musi_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {RGBLIGHT_LEFT_BEG, RGBLIGHT_LEFT_NUM, HSV_GOLD},
-    {RGBLIGHT_RIGHT_BEG, RGBLIGHT_RIGHT_NUM, HSV_GOLD}
-);
+const rgblight_segment_t PROGMEM sbp_game_layer[] = RGBLIGHT_LAYER_SEGMENTS({RGBLIGHT_LEFT_BEG, RGBLIGHT_LEFT_NUM, HSV_PURPLE}, {RGBLIGHT_RIGHT_BEG, RGBLIGHT_RIGHT_NUM, HSV_PURPLE});
+const rgblight_segment_t PROGMEM sbp_char_layer[] = RGBLIGHT_LAYER_SEGMENTS({RGBLIGHT_LEFT_BEG, RGBLIGHT_LEFT_NUM, HSV_MAGENTA}, {RGBLIGHT_RIGHT_BEG, RGBLIGHT_RIGHT_NUM, HSV_MAGENTA});
+const rgblight_segment_t PROGMEM sbp_musi_layer[] = RGBLIGHT_LAYER_SEGMENTS({RGBLIGHT_LEFT_BEG, RGBLIGHT_LEFT_NUM, HSV_GOLD}, {RGBLIGHT_RIGHT_BEG, RGBLIGHT_RIGHT_NUM, HSV_GOLD});
 
 // Right-hand layers
-const rgblight_segment_t PROGMEM sbp_keyb_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {RGBLIGHT_RIGHT_BEG, RGBLIGHT_RIGHT_NUM, HSV_CHARTREUSE}
-);
-const rgblight_segment_t PROGMEM sbp_navi_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {RGBLIGHT_RIGHT_BEG, RGBLIGHT_RIGHT_NUM, HSV_ORANGE}
-);
-const rgblight_segment_t PROGMEM sbp_symb_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {RGBLIGHT_RIGHT_BEG, RGBLIGHT_RIGHT_NUM, HSV_CYAN}
-);
+const rgblight_segment_t PROGMEM sbp_keyb_layer[] = RGBLIGHT_LAYER_SEGMENTS({RGBLIGHT_RIGHT_BEG, RGBLIGHT_RIGHT_NUM, HSV_CHARTREUSE});
+const rgblight_segment_t PROGMEM sbp_navi_layer[] = RGBLIGHT_LAYER_SEGMENTS({RGBLIGHT_RIGHT_BEG, RGBLIGHT_RIGHT_NUM, HSV_ORANGE});
+const rgblight_segment_t PROGMEM sbp_symb_layer[] = RGBLIGHT_LAYER_SEGMENTS({RGBLIGHT_RIGHT_BEG, RGBLIGHT_RIGHT_NUM, HSV_CYAN});
 
 // Left-hand layers
-const rgblight_segment_t PROGMEM sbp_numb_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {RGBLIGHT_LEFT_BEG, RGBLIGHT_LEFT_NUM, HSV_AZURE}
-);
-const rgblight_segment_t PROGMEM sbp_func_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {RGBLIGHT_LEFT_BEG, RGBLIGHT_LEFT_NUM, HSV_CORAL}
-);
-const rgblight_segment_t PROGMEM sbp_mous_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {RGBLIGHT_LEFT_BEG, RGBLIGHT_LEFT_NUM, HSV_SPRINGGREEN}
-);
+const rgblight_segment_t PROGMEM sbp_numb_layer[] = RGBLIGHT_LAYER_SEGMENTS({RGBLIGHT_LEFT_BEG, RGBLIGHT_LEFT_NUM, HSV_AZURE});
+const rgblight_segment_t PROGMEM sbp_func_layer[] = RGBLIGHT_LAYER_SEGMENTS({RGBLIGHT_LEFT_BEG, RGBLIGHT_LEFT_NUM, HSV_CORAL});
+const rgblight_segment_t PROGMEM sbp_mous_layer[] = RGBLIGHT_LAYER_SEGMENTS({RGBLIGHT_LEFT_BEG, RGBLIGHT_LEFT_NUM, HSV_SPRINGGREEN});
 
 // The layer setup
-const rgblight_segment_t* const PROGMEM sbp_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    sbp_game_layer, // 0
-    sbp_char_layer, // 1
-    sbp_symb_layer, // 2
-    sbp_numb_layer, // 3
-    sbp_navi_layer, // 4
-    sbp_func_layer, // 5
-    sbp_keyb_layer, // 6
-    sbp_mous_layer, // 7
-    sbp_musi_layer  // 8
+const rgblight_segment_t* const PROGMEM sbp_rgb_layers[] = RGBLIGHT_LAYERS_LIST(sbp_game_layer, // 0
+                                                                                sbp_char_layer, // 1
+                                                                                sbp_symb_layer, // 2
+                                                                                sbp_numb_layer, // 3
+                                                                                sbp_navi_layer, // 4
+                                                                                sbp_func_layer, // 5
+                                                                                sbp_keyb_layer, // 6
+                                                                                sbp_mous_layer, // 7
+                                                                                sbp_musi_layer  // 8
 );
 
 // Enable the LED switching layers

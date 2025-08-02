@@ -5,7 +5,7 @@
 #include "sbp-rgb-matrix.h"
 #include "color.h"
 
-#define X_DIV 224/2
+#define X_DIV 224 / 2
 /* Code relating to per-key RGB LED stuff
  */
 
@@ -25,22 +25,22 @@ RGB helper_dimmer(uint8_t r, uint8_t g, uint8_t b) {
 void helper_painter(uint8_t led_min, uint8_t led_max, RGB col, uint8_t side) {
     if (side == 1) {
         // Left
-        for(uint8_t i = led_min; i <= led_max; i++) {
-            if((g_led_config.point[i].x < X_DIV) && (g_led_config.flags[i] & LED_FLAG_INDICATOR)) {
+        for (uint8_t i = led_min; i <= led_max; i++) {
+            if ((g_led_config.point[i].x < X_DIV) && (g_led_config.flags[i] & LED_FLAG_INDICATOR)) {
                 rgb_matrix_set_color(i, col.r, col.g, col.b);
             }
         }
     } else if (side == 2) {
         // Right
-        for(uint8_t i = led_min; i <= led_max; i++) {
-            if((g_led_config.point[i].x > X_DIV) && (g_led_config.flags[i] & LED_FLAG_INDICATOR)) {
+        for (uint8_t i = led_min; i <= led_max; i++) {
+            if ((g_led_config.point[i].x > X_DIV) && (g_led_config.flags[i] & LED_FLAG_INDICATOR)) {
                 rgb_matrix_set_color(i, col.r, col.g, col.b);
             }
         }
     } else if (side == 0) {
         // Both
-        for(uint8_t i = led_min; i <= led_max; i++) {
-            if(g_led_config.flags[i] & LED_FLAG_INDICATOR) {
+        for (uint8_t i = led_min; i <= led_max; i++) {
+            if (g_led_config.flags[i] & LED_FLAG_INDICATOR) {
                 rgb_matrix_set_color(i, col.r, col.g, col.b);
             }
         }
@@ -48,16 +48,16 @@ void helper_painter(uint8_t led_min, uint8_t led_max, RGB col, uint8_t side) {
 }
 
 // Allow to turn off global handling
-__attribute__ ((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
+__attribute__((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
     return false;
 }
 // Set RGB state depending on layer
 void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t thisInd = 3;
-    RGB thisCol;
+    RGB     thisCol;
 
     // Load keymap hooks, and allow skipping us if returned true
-    if(rgb_matrix_indicators_advanced_keymap(led_min, led_max)) {
+    if (rgb_matrix_indicators_advanced_keymap(led_min, led_max)) {
         return;
     }
 
@@ -110,7 +110,9 @@ void shutdown_rgbmatrix(void) {
     rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
     rgb_matrix_sethsv_noeeprom(HSV_RED);
     // Delay until this registers
-    while(timer_elapsed(timer_start) < 250) {wait_ms(1);}
+    while (timer_elapsed(timer_start) < 250) {
+        wait_ms(1);
+    }
 }
 
 // Hook into suspend code

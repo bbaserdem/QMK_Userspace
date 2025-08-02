@@ -6,7 +6,7 @@
 
 // Need memcpy and memcmp from string.h along with transfer stuff
 #ifdef OLED_ENABLE
-#   include <string.h>
+#    include <string.h>
 #endif // OLED_ENABLE
 
 /* ROTARY ENCODER
@@ -20,12 +20,12 @@
 
 // Default state for the encoders
 void reset_encoder_state(void) {
-    userspace_config.e0base = 0;
+    userspace_config.e0base  = 0;
     userspace_config.e0point = 0;
-    userspace_config.e0rgb = 0;
-    userspace_config.e1base = 1;
+    userspace_config.e0rgb   = 0;
+    userspace_config.e1base  = 1;
     userspace_config.e1point = 1;
-    userspace_config.e1rgb = 1;
+    userspace_config.e1rgb   = 1;
 }
 
 // Encoder scroll functionality
@@ -33,7 +33,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     uint8_t this_number;
     // Differentiate layer roles
     switch (get_highest_layer(layer_state)) {
-#       ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
         case _KEYB:
             // Get correct index
             if (index == 0) {
@@ -43,7 +43,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             } else {
                 this_number = 128;
             }
-            switch(this_number) {
+            switch (this_number) {
                 case 0: // Effect the RGB mode
                     if (clockwise) {
                         rgb_matrix_step_noeeprom();
@@ -83,8 +83,8 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                     return false;
             }
             break;
-#       endif // RGB_MATRIX_ENABLE
-#       ifdef MOUSEKEY_ENABLE
+#endif // RGB_MATRIX_ENABLE
+#ifdef MOUSEKEY_ENABLE
         case _MOUS:
             // Get correct index
             if (index == 0) {
@@ -94,7 +94,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             } else {
                 this_number = 128;
             }
-            switch(this_number) {
+            switch (this_number) {
                 case 0: // Move mouse on horizontal axis
                     if (clockwise) {
                         tap_code(KC_MS_R);
@@ -127,7 +127,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                     return false;
             }
             break;
-#       endif // MOUSEKEY_ENABLE
+#endif // MOUSEKEY_ENABLE
         default:
             // Get correct index
             if (index == 0) {
@@ -137,7 +137,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             } else {
                 this_number = 128;
             }
-            switch(this_number) {
+            switch (this_number) {
                 case 0: // Volume
                     if (clockwise) {
                         tap_code16(KC_VOLU);
@@ -214,7 +214,7 @@ void encoder_click_action(uint8_t index) {
     uint8_t this_number;
     // Differentiate layer roles
     switch (get_highest_layer(layer_state)) {
-#       ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
         case _KEYB:
             // Get correct index
             if (index == 0) {
@@ -224,38 +224,26 @@ void encoder_click_action(uint8_t index) {
             } else {
                 this_number = 128;
             }
-            switch(this_number) {
+            switch (this_number) {
                 case 0: // Save the values to eeprom
                     rgb_matrix_mode(rgb_matrix_get_mode());
                     break;
                 case 1:
-                    rgb_matrix_sethsv(
-                        rgb_matrix_get_hue(),
-                        rgb_matrix_get_sat(),
-                        rgb_matrix_get_val()
-                    );
+                    rgb_matrix_sethsv(rgb_matrix_get_hue(), rgb_matrix_get_sat(), rgb_matrix_get_val());
                     break;
                 case 2:
-                    rgb_matrix_sethsv(
-                        rgb_matrix_get_hue(),
-                        rgb_matrix_get_sat(),
-                        rgb_matrix_get_val()
-                    );
+                    rgb_matrix_sethsv(rgb_matrix_get_hue(), rgb_matrix_get_sat(), rgb_matrix_get_val());
                     break;
                 case 3:
-                    rgb_matrix_sethsv(
-                        rgb_matrix_get_hue(),
-                        rgb_matrix_get_sat(),
-                        rgb_matrix_get_val()
-                    );
+                    rgb_matrix_sethsv(rgb_matrix_get_hue(), rgb_matrix_get_sat(), rgb_matrix_get_val());
                     break;
                 case 4:
                     rgb_matrix_set_speed(rgb_matrix_get_speed());
                     break;
             }
             break;
-#       endif // RGB_MATRIX_ENABLE
-#       ifdef MOUSEKEY_ENABLE
+#endif // RGB_MATRIX_ENABLE
+#ifdef MOUSEKEY_ENABLE
         case _MOUS:
             // Get correct index
             if (index == 0) {
@@ -265,7 +253,7 @@ void encoder_click_action(uint8_t index) {
             } else {
                 this_number = 128;
             }
-            switch(this_number) {
+            switch (this_number) {
                 case 0: // Left click
                     tap_code16(KC_BTN1);
                     break;
@@ -278,7 +266,7 @@ void encoder_click_action(uint8_t index) {
                     break;
             }
             break;
-#       endif // MOUSEKEY_ENABLE
+#endif // MOUSEKEY_ENABLE
         default:
             // Get correct index
             if (index == 0) {
@@ -288,7 +276,7 @@ void encoder_click_action(uint8_t index) {
             } else {
                 this_number = 128;
             }
-            switch(this_number) {
+            switch (this_number) {
                 case 0: // Toggle mute
                 case 2:
                     tap_code16(KC_MUTE);
@@ -336,7 +324,7 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
         // If shifted, move mode one point forward
         if (get_mods() & MOD_MASK_SHIFT) {
             switch (get_highest_layer(layer_state)) {
-#               ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
                 case _KEYB:
                     if (encoder_index == 0) {
                         userspace_config.e0rgb = (userspace_config.e0rgb + 1) % ENC_MODE_RGB_COUNT;
@@ -344,8 +332,8 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
                         userspace_config.e1rgb = (userspace_config.e1rgb + 1) % ENC_MODE_RGB_COUNT;
                     }
                     break;
-#               endif // RGB_MATRIX_ENABLE
-#               ifdef MOUSEKEY_ENABLE
+#endif // RGB_MATRIX_ENABLE
+#ifdef MOUSEKEY_ENABLE
                 case _MOUS:
                     if (encoder_index == 0) {
                         userspace_config.e0point = (userspace_config.e0point + 1) % ENC_MODE_POINTER_COUNT;
@@ -353,7 +341,7 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
                         userspace_config.e1point = (userspace_config.e1point + 1) % ENC_MODE_POINTER_COUNT;
                     }
                     break;
-#               endif // MOUSEKEY_ENABLE
+#endif // MOUSEKEY_ENABLE
                 default:
                     if (encoder_index == 0) {
                         userspace_config.e0base = (userspace_config.e0base + 1) % ENC_MODE_BASE_COUNT;
@@ -364,10 +352,10 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
             }
             // Mark config as dirty for throttled EEPROM write
             mark_config_dirty();
-        // If ctrl is active, move mode one point backwards
+            // If ctrl is active, move mode one point backwards
         } else if (get_mods() & MOD_MASK_CTRL) {
             switch (get_highest_layer(layer_state)) {
-#               ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
                 case _KEYB:
                     if (encoder_index == 0) {
                         userspace_config.e0rgb = (userspace_config.e0rgb + ENC_MODE_RGB_COUNT - 1) % ENC_MODE_RGB_COUNT;
@@ -375,8 +363,8 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
                         userspace_config.e1rgb = (userspace_config.e1rgb + ENC_MODE_RGB_COUNT - 1) % ENC_MODE_RGB_COUNT;
                     }
                     break;
-#               endif // RGB_MATRIX_ENABLE
-#               ifdef MOUSEKEY_ENABLE
+#endif // RGB_MATRIX_ENABLE
+#ifdef MOUSEKEY_ENABLE
                 case _MOUS:
                     if (encoder_index == 0) {
                         userspace_config.e0point = (userspace_config.e0point + ENC_MODE_POINTER_COUNT - 1) % ENC_MODE_POINTER_COUNT;
@@ -384,7 +372,7 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
                         userspace_config.e1point = (userspace_config.e1point + ENC_MODE_POINTER_COUNT - 1) % ENC_MODE_POINTER_COUNT;
                     }
                     break;
-#               endif // MOUSEKEY_ENABLE
+#endif // MOUSEKEY_ENABLE
                 default:
                     if (encoder_index == 0) {
                         userspace_config.e0base = (userspace_config.e0base + ENC_MODE_BASE_COUNT - 1) % ENC_MODE_BASE_COUNT;
@@ -395,12 +383,12 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
             }
             // Mark config as dirty for throttled EEPROM write
             mark_config_dirty();
-        // If meta is active, reset the encoder states
+            // If meta is active, reset the encoder states
         } else if (get_mods() & MOD_MASK_GUI) {
             reset_encoder_state();
             // Mark config as dirty for throttled EEPROM write
             mark_config_dirty();
-        // If nothing else; just perform the click action
+            // If nothing else; just perform the click action
         } else {
             encoder_click_action(encoder_index);
         }
@@ -410,12 +398,12 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
 
 // For printing status to OLED
 #ifdef OLED_ENABLE
-void encoder_state_string(uint8_t index, uint8_t layer, char* buffer) {
+void encoder_state_string(uint8_t index, uint8_t layer, char *buffer) {
     uint8_t this_number;
     // Get the layer straight from the main function
     switch (layer) {
         // If RGB control mode is enabled
-#       ifdef RGB_MATRIX_ENABLE
+#    ifdef RGB_MATRIX_ENABLE
         case _KEYB:
             // Get correct index
             if (index == 0) {
@@ -446,9 +434,9 @@ void encoder_state_string(uint8_t index, uint8_t layer, char* buffer) {
                     break;
             }
             break;
-#       endif // RGB_MATRIX_ENABLE
-        // If pointer control is enabled
-#       ifdef MOUSEKEY_ENABLE
+#    endif  // RGB_MATRIX_ENABLE
+            // If pointer control is enabled
+#    ifdef MOUSEKEY_ENABLE
         case _MOUS:
             // Get correct index
             if (index == 0) {
@@ -476,7 +464,7 @@ void encoder_state_string(uint8_t index, uint8_t layer, char* buffer) {
                     break;
             }
             break;
-#       endif // MOUSEKEY_ENABLE
+#    endif // MOUSEKEY_ENABLE
         default:
             // Get correct index
             if (index == 0) {

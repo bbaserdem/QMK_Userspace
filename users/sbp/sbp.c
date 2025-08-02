@@ -9,21 +9,21 @@
 
 // Need memcpy and memcmp from string.h along with transfer stuff
 #ifdef SPLIT_KEYBOARD
-#include "transactions.h"
-#include <string.h>
+#    include "transactions.h"
+#    include <string.h>
 #endif // SPLIT_KEYBOARD
 
 /*-------------------------*\
 |*-----KEYBOARD CONFIG-----*|
 \*-------------------------*/
 // Separate the userspace general from user settings set in keyboard folder
-userspace_config_t userspace_config;
+userspace_config_t  userspace_config;
 userspace_runtime_t userspace_runtime;
 
 // EEPROM wear leveling
 static bool config_dirty = false;
-void mark_config_dirty(void) { 
-    config_dirty = true; 
+void        mark_config_dirty(void) {
+    config_dirty = true;
 }
 
 /*---------------------------------*\
@@ -33,7 +33,7 @@ void mark_config_dirty(void) {
 // These information are in custom structs, defined in the header
 // Split into two, because one gets written to EEPROM and one doesn't
 #ifdef SPLIT_KEYBOARD
-userspace_config_t transport_userspace_config;
+userspace_config_t  transport_userspace_config;
 userspace_runtime_t transport_userspace_runtime;
 
 // Translate the RPC data to the local variables, from primary to secondary
@@ -56,11 +56,11 @@ void userspace_runtime_sync(uint8_t in_buflen, const void* in_data, uint8_t out_
 void userspace_transport_update(void) {
     if (is_keyboard_master()) {
         // If we are the main device; we want to send info.
-        transport_userspace_config.raw = userspace_config.raw;
+        transport_userspace_config.raw  = userspace_config.raw;
         transport_userspace_runtime.raw = userspace_runtime.raw;
     } else {
         // If we are the secondary device; we want to receive info.
-        userspace_config.raw = transport_userspace_config.raw;
+        userspace_config.raw  = transport_userspace_config.raw;
         userspace_runtime.raw = transport_userspace_runtime.raw;
     }
 }
@@ -69,10 +69,10 @@ void userspace_transport_update(void) {
 void userspace_transport_sync(bool force_sync) {
     if (is_keyboard_master()) {
         // Keep track of the last state
-        static userspace_config_t last_userspace_config;
+        static userspace_config_t  last_userspace_config;
         static userspace_runtime_t last_userspace_runtime;
-        static fast_timer_t last_sync_timer = 0;
-        
+        static fast_timer_t        last_sync_timer = 0;
+
         // Throttle RPC bursts (20ms minimum gap)
         if (!force_sync && timer_elapsed_fast(last_sync_timer) < 20) {
             return;
@@ -98,7 +98,7 @@ void userspace_transport_sync(bool force_sync) {
         if (runtime_needs_sync || force_sync) {
             transaction_rpc_send(RPC_ID_RUNTIME_SYNC, sizeof(transport_userspace_runtime), &transport_userspace_runtime);
         }
-        
+
         // Update sync timer if we sent anything
         if (config_needs_sync || runtime_needs_sync || force_sync) {
             last_sync_timer = timer_read_fast();
@@ -140,9 +140,9 @@ SBP_WEAK_HOOK_VOID(keyboard_post_init, (void)) {
     //  set_single_persistent_default_layer(_BASE);
 
     // Split keyboard halves communication
-#   ifdef SPLIT_KEYBOARD
+#ifdef SPLIT_KEYBOARD
     // Register the transactions
-    transaction_register_rpc( RPC_ID_CONFIG_SYNC, userspace_config_sync );
+    transaction_register_rpc(RPC_ID_CONFIG_SYNC, userspace_config_sync);
     transaction_register_rpc(RPC_ID_RUNTIME_SYNC, userspace_runtime_sync);
     // Load default config values
     if (is_keyboard_master()) {
@@ -156,20 +156,20 @@ SBP_WEAK_HOOK_VOID(keyboard_post_init, (void)) {
         // Just sync the data received
         userspace_transport_update();
     }
-#   else // SPLIT_KEYBOARD
+#else  // SPLIT_KEYBOARD
     // If we are not split; just load from eeprom
     userspace_config.raw = eeconfig_read_user();
-#   endif // SPLIT_KEYBOARD
+#endif // SPLIT_KEYBOARD
 
     // Backlight LED
-#   ifdef BACKLIGHT_ENABLE
+#ifdef BACKLIGHT_ENABLE
     keyboard_post_init_backlight();
-#   endif // BACKLIGHT_ENABLE
+#endif // BACKLIGHT_ENABLE
 
     // RGB underglow
-#   ifdef RGBLIGHT_ENABLE
+#ifdef RGBLIGHT_ENABLE
     keyboard_post_init_rgblight();
-#   endif // RGBLIGHT_ENABLE
+#endif // RGBLIGHT_ENABLE
 
     // Keymap specific stuff
     keyboard_post_init_keymap();
@@ -183,12 +183,12 @@ SBP_WEAK_HOOK_VOID(keyboard_post_init, (void)) {
 SBP_WEAK_HOOK_VOID(housekeeping_task, (void)) {
     // Check eeprom every now and then
     static userspace_config_t prev_userspace_config;
-    static fast_timer_t throttle_timer = 0;
-    static bool init_flag = true;
+    static fast_timer_t       throttle_timer = 0;
+    static bool               init_flag      = true;
 
     // Read this if we never read it before
     if (init_flag) {
-        init_flag = false;
+        init_flag                 = false;
         prev_userspace_config.raw = eeconfig_read_user();
     }
 
@@ -205,10 +205,10 @@ SBP_WEAK_HOOK_VOID(housekeeping_task, (void)) {
     }
 
     // Do transport stuff if we are split boards
-#   ifdef SPLIT_KEYBOARD
+#ifdef SPLIT_KEYBOARD
     userspace_transport_update();
     userspace_transport_sync(false);
-#   endif // SPLIT_KEYBOARD
+#endif // SPLIT_KEYBOARD
 
     // Hook to keymap code
     housekeeping_task_keymap();
@@ -223,9 +223,9 @@ void eeconfig_init_user(void) {
     // Set everything to default
     userspace_config.raw = 0;
     // Set encoder states to sane defaults if enabled
-#   ifdef ENCODER_ENABLE
+#ifdef ENCODER_ENABLE
     reset_encoder_state();
-#   endif // ENCODER_ENABLE
+#endif // ENCODER_ENABLE
     // Update the eeprom
     eeconfig_update_user(userspace_config.raw);
 }
@@ -238,17 +238,16 @@ void eeconfig_init_user(void) {
  *  Macro definitions
  *  Audio hooks
  */
-SBP_WEAK_HOOK_RETURN(process_record, bool, (uint16_t keycode, keyrecord_t *record), true) {
+SBP_WEAK_HOOK_RETURN(process_record, bool, (uint16_t keycode, keyrecord_t* record), true) {
     // Return after running through all individual hooks
-    return
-        process_record_keymap(keycode, record)  &&
-#       ifdef AUDIO_ENABLE
-        process_record_audio(keycode, record)   &&
-#       endif // AUDIO_ENABLE
-#       ifdef ENCODER_ENABLE
-        process_record_encoder(keycode, record) &&
-#       endif // ENCODER_ENABLE
-        process_record_macro(keycode, record);
+    return process_record_keymap(keycode, record) &&
+#ifdef AUDIO_ENABLE
+           process_record_audio(keycode, record) &&
+#endif // AUDIO_ENABLE
+#ifdef ENCODER_ENABLE
+           process_record_encoder(keycode, record) &&
+#endif // ENCODER_ENABLE
+           process_record_macro(keycode, record);
 }
 
 /*---------------------*\
@@ -273,13 +272,13 @@ SBP_WEAK_HOOK_RETURN(layer_state_set, layer_state_t, (layer_state_t state), stat
     // Keymap layer state setting
     state = layer_state_set_keymap(state);
     // For underglow stuff
-#   ifdef RGBLIGHT_ENABLE
+#ifdef RGBLIGHT_ENABLE
     state = layer_state_set_rgblight(state);
-#   endif // RGBLIGHT_ENABLE
+#endif // RGBLIGHT_ENABLE
     // Audio playback
-#   ifdef AUDIO_ENABLE
+#ifdef AUDIO_ENABLE
     state = layer_state_set_audio(state);
-#   endif // AUDIO_ENABLE
+#endif // AUDIO_ENABLE
 
     return state;
 }
@@ -313,17 +312,17 @@ SBP_WEAK_HOOK_VOID(led_set, (uint8_t usb_led)) {
 SBP_WEAK_HOOK_VOID(suspend_power_down, (void)) {
     suspend_power_down_keymap();
     // RGB matrix sleep hook
-#   ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
     suspend_power_down_rgbmatrix();
-#   endif // RGB_MATRIX_ENABLE
+#endif // RGB_MATRIX_ENABLE
 }
 
 SBP_WEAK_HOOK_VOID(suspend_wakeup_init, (void)) {
     suspend_wakeup_init_keymap();
     // RGB matrix sleep hook
-#   ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
     suspend_wakeup_init_rgbmatrix();
-#   endif // RGB_MATRIX_ENABLE
+#endif // RGB_MATRIX_ENABLE
 }
 
 /*------------------*\
@@ -333,13 +332,13 @@ SBP_WEAK_HOOK_VOID(suspend_wakeup_init, (void)) {
  */
 SBP_WEAK_HOOK_VOID(shutdown, (void)) {
     // Underglow LED hook on boot
-#   ifdef RGBLIGHT_ENABLE
+#ifdef RGBLIGHT_ENABLE
     shutdown_rgblight();
-#   endif // RGBLIGHT_ENABLE
+#endif // RGBLIGHT_ENABLE
     // Perkey led hook on boot
-#   ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
     shutdown_rgbmatrix();
-#   endif // RGB_MATRIX_ENABLE
+#endif // RGB_MATRIX_ENABLE
     // Keymap hooks
     shutdown_keymap();
 }
