@@ -21,6 +21,9 @@ enum userspace_custom_keycodes {
     DBL_BRC,
     // Macro key
     BB_PGPK,
+    // Undo/Redo
+    BB_UNDO,
+    BB_REDO,
     // Unicode strings
 #   ifdef UNICODEMAP_ENABLE
     BB_LENY,
@@ -60,6 +63,7 @@ enum userspace_custom_keycodes {
 #define MU_SLOW KC_DOWN
 #define MU_MASK KC_A
 #define BB_SND  MU_ON
+#define MU_MOD  MU_NEXT
 #ifdef TAP_DANCE_ENABLE
 #define MU_TEMP TD(TD_AUDIO_TEMPO)
 #else // TAP_DANCE_ENABLE
@@ -74,6 +78,7 @@ enum userspace_custom_keycodes {
 #define MU_SLOW KC_NO
 #define MU_MASK KC_NO
 #define BB_SND  KC_MUTE
+#define MU_MOD  KC_NO
 #endif // AUDIO_ENABLE
 
 // Unicode single keys

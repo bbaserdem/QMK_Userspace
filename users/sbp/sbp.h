@@ -142,4 +142,4 @@ void led_set_keymap(uint8_t usb_led);
 void suspend_power_down_keymap(void);
 void suspend_wakeup_init_keymap(void);
 // For code that runs on powerdown
-void shutdown_keymap(void);
+bool shutdown_keymap(bool jump_to_bootloader);

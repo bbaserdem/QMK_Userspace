@@ -44,7 +44,7 @@
 
 // Unicode entry mode
 #ifdef UNICODEMAP_ENABLE
-#   define UNICODE_SELECTED_MODES UC_LNX
+#   define UNICODE_SELECTED_MODES UNICODE_MODE_LINUX
     // Adapt the unicode entry mode to dvorak
 #   ifdef UNICODE_KEY_LNX
 #   undef UNICODE_KEY_LNX
@@ -60,7 +60,6 @@
 // Tap-hold settings
 #define TAPPING_TERM 200
 #define TAP_CODE_DELAY 20
-#define IGNORE_MOD_TAP_INTERRUPT
 #define PERMISSIVE_HOLD
 #define TAPPING_FORCE_HOLD
 

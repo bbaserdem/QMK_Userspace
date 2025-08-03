@@ -49,23 +49,23 @@ void helper_painter(uint8_t led_min, uint8_t led_max, RGB col, uint8_t side) {
 
 // Allow to turn off global handling
 __attribute__((weak)) bool rgb_matrix_indicators_advanced_keymap(uint8_t led_min, uint8_t led_max) {
-    return false;
+    return true;
 }
 // Set RGB state depending on layer
-void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     uint8_t thisInd = 3;
     RGB     thisCol;
 
-    // Load keymap hooks, and allow skipping us if returned true
-    if (rgb_matrix_indicators_advanced_keymap(led_min, led_max)) {
-        return;
+    // Load keymap hooks, and allow skipping us if returned false
+    if (!rgb_matrix_indicators_advanced_keymap(led_min, led_max)) {
+        return false;
     }
 
     // Grab color info
     switch (get_highest_layer(layer_state)) {
         case _GAME: // Set left side as purple
             thisCol = helper_dimmer(RGB_PURPLE);
-            thisInd = 0;
+            thisInd = 1;
             break;
         case _CHAR: // Set full board as magenta
             thisCol = helper_dimmer(RGB_MAGENTA);
@@ -101,6 +101,7 @@ void rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             break;
     }
     helper_painter(led_min, led_max, thisCol, thisInd);
+    return true;
 }
 
 // Hook into shutdown code to make all perkey LED's red on hitting reset

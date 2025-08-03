@@ -52,37 +52,37 @@ enum userspace_layers {
 // Regular keymap, left side
 #define GUI_A   MT(MOD_LGUI, DV_A)
 #define ALT_O   MT(MOD_LALT, DV_O)
-#define CTL_E   MT(MOD_LCTL, DV_E)
+#define CNT_E   MT(MOD_LCTL, DV_E)
 #define SFT_U   MT(MOD_LSFT, DV_U)
 #define GUI_SC  MT(MOD_RGUI, DV_SCLN)
 #define ALT_Q   MT(MOD_RALT, DV_Q)
-#define CTL_J   MT(MOD_RCTL, DV_J)
+#define CNT_J   MT(MOD_RCTL, DV_J)
 #define SFT_K   MT(MOD_RSFT, DV_K)
 // Regular keymap, right side
 #define SFT_H   MT(MOD_LSFT, DV_H)
-#define CTL_T   MT(MOD_LCTL, DV_T)
+#define CNT_T   MT(MOD_LCTL, DV_T)
 #define ALT_N   MT(MOD_LALT, DV_N)
 #define GUI_S   MT(MOD_LGUI, DV_S)
 #define SFT_M   MT(MOD_RSFT, DV_M)
-#define CTL_W   MT(MOD_RCTL, DV_W)
+#define CNT_W   MT(MOD_RCTL, DV_W)
 #define ALT_V   MT(MOD_RALT, DV_V)
 #define GUI_Z   MT(MOD_RGUI, DV_Z)
 // Dvorak keymap, left side
 #define DGUI_A  MT(MOD_LGUI, KC_A)
 #define DALT_O  MT(MOD_LALT, KC_O)
-#define DCTL_E  MT(MOD_LCTL, KC_E)
+#define DCNT_E  MT(MOD_LCTL, KC_E)
 #define DSHF_U  MT(MOD_LSFT, KC_U)
 #define DGUI_SC MT(MOD_RGUI, KC_SCLN)
 #define DALT_Q  MT(MOD_RALT, KC_Q)
-#define DCTL_J  MT(MOD_RCTL, KC_J)
+#define DCNT_J  MT(MOD_RCTL, KC_J)
 #define DSHF_K  MT(MOD_RSFT, KC_K)
 // Dvorak keymap, right side
 #define DSHF_H  MT(MOD_LSFT, KC_H)
-#define DCTL_T  MT(MOD_LCTL, KC_T)
+#define DCNT_T  MT(MOD_LCTL, KC_T)
 #define DALT_N  MT(MOD_LALT, KC_N)
 #define DGUI_S  MT(MOD_LGUI, KC_S)
 #define DSHF_M  MT(MOD_RSFT, KC_M)
-#define DCTL_W  MT(MOD_RCTL, KC_W)
+#define DCNT_W  MT(MOD_RCTL, KC_W)
 #define DALT_V  MT(MOD_RALT, KC_V)
 #define DGUI_Z  MT(MOD_RGUI, KC_Z)
 
@@ -146,13 +146,13 @@ enum userspace_layers {
 #define _BR1_1_ KC_NUBS
 // Row 2
 #define _BL2_1_ DV_BSLS
-#define _BL2_5_ GUI_A,  ALT_O,  CTL_E,  SFT_U,  DV_I
-#define _BR2_5_ DV_D,   SFT_H,  CTL_T,  ALT_N,  GUI_S
+#define _BL2_5_ GUI_A,  ALT_O,  CNT_E,  SFT_U,  DV_I
+#define _BR2_5_ DV_D,   SFT_H,  CNT_T,  ALT_N,  GUI_S
 #define _BR2_1_ DV_MINS
 // Row 3
 #define _BL3_1_ DV_SLSH
-#define _BL3_5_ GUI_SC, ALT_Q,  CTL_J,  SFT_K,  DV_X
-#define _BR3_5_ DV_B,   SFT_M,  CTL_W,  ALT_V,  GUI_Z
+#define _BL3_5_ GUI_SC, ALT_Q,  CNT_J,  SFT_K,  DV_X
+#define _BR3_5_ DV_B,   SFT_M,  CNT_W,  ALT_V,  GUI_Z
 #define _BR3_1_ DV_EQL
 // Row 4
 #define _BL4_3_ MED_DEL,NAV_TAB,SYM_SPC
@@ -177,13 +177,13 @@ enum userspace_layers {
 #define _DR1_1_ KC_NUBS
 // Row 2
 #define _DL2_1_ KC_BSLS
-#define _DL2_5_ DGUI_A, DALT_O, DCTL_E, DSFT_U, KC_I
-#define _DR2_5_ KC_D,   DSFT_H, DCTL_T, DALT_N, DGUI_S
+#define _DL2_5_ DGUI_A, DALT_O, DCNT_E, DSHF_U, KC_I
+#define _DR2_5_ KC_D,   DSHF_H, DCNT_T, DALT_N, DGUI_S
 #define _DR2_1_ KC_MINS
 // Row 3
 #define _DL3_1_ KC_SLSH
-#define _DL3_5_ DGUI_SC,DALT_Q, DCTL_J, DSFT_K, KC_X
-#define _DR3_5_ KC_B,   DSFT_M, DCTL_W, DALT_V, DGUI_Z
+#define _DL3_5_ DGUI_SC,DALT_Q, DCNT_J, DSHF_K, KC_X
+#define _DR3_5_ KC_B,   DSHF_M, DCNT_W, DALT_V, DGUI_Z
 #define _DR3_1_ KC_EQL
 // Row 4
 #define _DL4_3_ MED_DEL,NAV_TAB,SYM_SPC

@@ -330,7 +330,7 @@ SBP_WEAK_HOOK_VOID(suspend_wakeup_init, (void)) {
 \*------------------*/
 /* Shutdown stuff here; for when entering bootmode.
  */
-SBP_WEAK_HOOK_VOID(shutdown, (void)) {
+SBP_WEAK_HOOK_RETURN(shutdown, bool, (bool jump_to_bootloader), true) {
     // Underglow LED hook on boot
 #ifdef RGBLIGHT_ENABLE
     shutdown_rgblight();
@@ -340,5 +340,6 @@ SBP_WEAK_HOOK_VOID(shutdown, (void)) {
     shutdown_rgbmatrix();
 #endif // RGB_MATRIX_ENABLE
     // Keymap hooks
-    shutdown_keymap();
+    shutdown_keymap(jump_to_bootloader);
+    return true;
 }

@@ -1,7 +1,7 @@
 /* Copyright 2021 Batuhan Başerdem
  * <baserdem.batuhan@gmail.com> @bbaserdem
  */
-#include "bb-audio.h"
+#include "sbp-audio.h"
 /* AUDIO
  * This contains some audio related stuff.
  * There is no need to wrap this up with preprocessor commands;
@@ -34,12 +34,12 @@ layer_state_t layer_state_set_audio(layer_state_t state) {
 // Audio layer switch; add the music layer on top of this
 bool process_record_audio(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case MU_TOG:
+        case MU_TOGG:
             if (!record->event.pressed) {
                 // On release, exit music mode if enabled
                 if (layer_state_is(_MUSI)) {
                     layer_off(_MUSI);
-                // If not enabled; turn off all layers and load music layer
+                    // If not enabled; turn off all layers and load music layer
                 } else {
                     layer_clear();
                     layer_on(_MUSI);

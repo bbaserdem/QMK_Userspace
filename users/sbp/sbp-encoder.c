@@ -20,12 +20,12 @@
 
 // Default state for the encoders
 void reset_encoder_state(void) {
-    userspace_config.e0base  = 0;
-    userspace_config.e0point = 0;
-    userspace_config.e0rgb   = 0;
-    userspace_config.e1base  = 1;
-    userspace_config.e1point = 1;
-    userspace_config.e1rgb   = 1;
+    userspace_config.bits.e0base  = 0;
+    userspace_config.bits.e0point = 0;
+    userspace_config.bits.e0rgb   = 0;
+    userspace_config.bits.e1base  = 1;
+    userspace_config.bits.e1point = 1;
+    userspace_config.bits.e1rgb   = 1;
 }
 
 // Encoder scroll functionality
@@ -37,9 +37,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         case _KEYB:
             // Get correct index
             if (index == 0) {
-                this_number = userspace_config.e0rgb;
+                this_number = userspace_config.bits.e0rgb;
             } else if (index == 1) {
-                this_number = userspace_config.e1rgb;
+                this_number = userspace_config.bits.e1rgb;
             } else {
                 this_number = 128;
             }
@@ -88,9 +88,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         case _MOUS:
             // Get correct index
             if (index == 0) {
-                this_number = userspace_config.e0point;
+                this_number = userspace_config.bits.e0point;
             } else if (index == 1) {
-                this_number = userspace_config.e1point;
+                this_number = userspace_config.bits.e1point;
             } else {
                 this_number = 128;
             }
@@ -131,9 +131,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         default:
             // Get correct index
             if (index == 0) {
-                this_number = userspace_config.e0base;
+                this_number = userspace_config.bits.e0base;
             } else if (index == 1) {
-                this_number = userspace_config.e1base;
+                this_number = userspace_config.bits.e1base;
             } else {
                 this_number = 128;
             }
@@ -218,9 +218,9 @@ void encoder_click_action(uint8_t index) {
         case _KEYB:
             // Get correct index
             if (index == 0) {
-                this_number = userspace_config.e0rgb;
+                this_number = userspace_config.bits.e0rgb;
             } else if (index == 1) {
-                this_number = userspace_config.e1rgb;
+                this_number = userspace_config.bits.e1rgb;
             } else {
                 this_number = 128;
             }
@@ -247,9 +247,9 @@ void encoder_click_action(uint8_t index) {
         case _MOUS:
             // Get correct index
             if (index == 0) {
-                this_number = userspace_config.e0point;
+                this_number = userspace_config.bits.e0point;
             } else if (index == 1) {
-                this_number = userspace_config.e1point;
+                this_number = userspace_config.bits.e1point;
             } else {
                 this_number = 128;
             }
@@ -270,9 +270,9 @@ void encoder_click_action(uint8_t index) {
         default:
             // Get correct index
             if (index == 0) {
-                this_number = userspace_config.e0base;
+                this_number = userspace_config.bits.e0base;
             } else if (index == 1) {
-                this_number = userspace_config.e1base;
+                this_number = userspace_config.bits.e1base;
             } else {
                 this_number = 128;
             }
@@ -327,26 +327,26 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGB_MATRIX_ENABLE
                 case _KEYB:
                     if (encoder_index == 0) {
-                        userspace_config.e0rgb = (userspace_config.e0rgb + 1) % ENC_MODE_RGB_COUNT;
+                        userspace_config.bits.e0rgb = (userspace_config.bits.e0rgb + 1) % ENC_MODE_RGB_COUNT;
                     } else {
-                        userspace_config.e1rgb = (userspace_config.e1rgb + 1) % ENC_MODE_RGB_COUNT;
+                        userspace_config.bits.e1rgb = (userspace_config.bits.e1rgb + 1) % ENC_MODE_RGB_COUNT;
                     }
                     break;
 #endif // RGB_MATRIX_ENABLE
 #ifdef MOUSEKEY_ENABLE
                 case _MOUS:
                     if (encoder_index == 0) {
-                        userspace_config.e0point = (userspace_config.e0point + 1) % ENC_MODE_POINTER_COUNT;
+                        userspace_config.bits.e0point = (userspace_config.bits.e0point + 1) % ENC_MODE_POINTER_COUNT;
                     } else {
-                        userspace_config.e1point = (userspace_config.e1point + 1) % ENC_MODE_POINTER_COUNT;
+                        userspace_config.bits.e1point = (userspace_config.bits.e1point + 1) % ENC_MODE_POINTER_COUNT;
                     }
                     break;
 #endif // MOUSEKEY_ENABLE
                 default:
                     if (encoder_index == 0) {
-                        userspace_config.e0base = (userspace_config.e0base + 1) % ENC_MODE_BASE_COUNT;
+                        userspace_config.bits.e0base = (userspace_config.bits.e0base + 1) % ENC_MODE_BASE_COUNT;
                     } else {
-                        userspace_config.e1base = (userspace_config.e1base + 1) % ENC_MODE_BASE_COUNT;
+                        userspace_config.bits.e1base = (userspace_config.bits.e1base + 1) % ENC_MODE_BASE_COUNT;
                     }
                     break;
             }
@@ -358,26 +358,26 @@ bool process_record_encoder(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGB_MATRIX_ENABLE
                 case _KEYB:
                     if (encoder_index == 0) {
-                        userspace_config.e0rgb = (userspace_config.e0rgb + ENC_MODE_RGB_COUNT - 1) % ENC_MODE_RGB_COUNT;
+                        userspace_config.bits.e0rgb = (userspace_config.bits.e0rgb + ENC_MODE_RGB_COUNT - 1) % ENC_MODE_RGB_COUNT;
                     } else {
-                        userspace_config.e1rgb = (userspace_config.e1rgb + ENC_MODE_RGB_COUNT - 1) % ENC_MODE_RGB_COUNT;
+                        userspace_config.bits.e1rgb = (userspace_config.bits.e1rgb + ENC_MODE_RGB_COUNT - 1) % ENC_MODE_RGB_COUNT;
                     }
                     break;
 #endif // RGB_MATRIX_ENABLE
 #ifdef MOUSEKEY_ENABLE
                 case _MOUS:
                     if (encoder_index == 0) {
-                        userspace_config.e0point = (userspace_config.e0point + ENC_MODE_POINTER_COUNT - 1) % ENC_MODE_POINTER_COUNT;
+                        userspace_config.bits.e0point = (userspace_config.bits.e0point + ENC_MODE_POINTER_COUNT - 1) % ENC_MODE_POINTER_COUNT;
                     } else {
-                        userspace_config.e1point = (userspace_config.e1point + ENC_MODE_POINTER_COUNT - 1) % ENC_MODE_POINTER_COUNT;
+                        userspace_config.bits.e1point = (userspace_config.bits.e1point + ENC_MODE_POINTER_COUNT - 1) % ENC_MODE_POINTER_COUNT;
                     }
                     break;
 #endif // MOUSEKEY_ENABLE
                 default:
                     if (encoder_index == 0) {
-                        userspace_config.e0base = (userspace_config.e0base + ENC_MODE_BASE_COUNT - 1) % ENC_MODE_BASE_COUNT;
+                        userspace_config.bits.e0base = (userspace_config.bits.e0base + ENC_MODE_BASE_COUNT - 1) % ENC_MODE_BASE_COUNT;
                     } else {
-                        userspace_config.e1base = (userspace_config.e1base + ENC_MODE_BASE_COUNT - 1) % ENC_MODE_BASE_COUNT;
+                        userspace_config.bits.e1base = (userspace_config.bits.e1base + ENC_MODE_BASE_COUNT - 1) % ENC_MODE_BASE_COUNT;
                     }
                     break;
             }
@@ -407,9 +407,9 @@ void encoder_state_string(uint8_t index, uint8_t layer, char *buffer) {
         case _KEYB:
             // Get correct index
             if (index == 0) {
-                this_number = userspace_config.e0rgb;
+                this_number = userspace_config.bits.e0rgb;
             } else if (index == 1) {
-                this_number = userspace_config.e1rgb;
+                this_number = userspace_config.bits.e1rgb;
             } else {
                 this_number = 128;
             }
@@ -440,9 +440,9 @@ void encoder_state_string(uint8_t index, uint8_t layer, char *buffer) {
         case _MOUS:
             // Get correct index
             if (index == 0) {
-                this_number = userspace_config.e0point;
+                this_number = userspace_config.bits.e0point;
             } else if (index == 1) {
-                this_number = userspace_config.e1point;
+                this_number = userspace_config.bits.e1point;
             } else {
                 this_number = 128;
             }
@@ -468,9 +468,9 @@ void encoder_state_string(uint8_t index, uint8_t layer, char *buffer) {
         default:
             // Get correct index
             if (index == 0) {
-                this_number = userspace_config.e0base;
+                this_number = userspace_config.bits.e0base;
             } else if (index == 1) {
-                this_number = userspace_config.e1base;
+                this_number = userspace_config.bits.e1base;
             } else {
                 this_number = 128;
             }

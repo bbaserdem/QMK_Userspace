@@ -5,7 +5,7 @@
 #include "sbp.h"
 
 // Contain the main oled writer here
-void oled_task_user(void);
+bool oled_task_user(void);
 
 // Some generic rendering functions
 void render_qmk_logo(uint8_t row, uint8_t col);

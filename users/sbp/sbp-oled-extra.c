@@ -107,9 +107,9 @@ void render_status_left(uint8_t row, uint8_t col) {
     // WPM text
     render_wpm(row + 2, col + 0);
     // Visual layout
-    render_keymap(row + 3, col + 0, false);
+    // render_keymap(row + 3, col + 0, false);
     // Draw the image after 14'th character
-    render_layout(row + 0, col + 14, this_mod, true);
+    // render_layout(row + 0, col + 14, this_mod, true);
 }
 
 void render_status_right(uint8_t row, uint8_t col) {
@@ -124,7 +124,7 @@ void render_status_right(uint8_t row, uint8_t col) {
     uint8_t this_layer = get_highest_layer(layer_state);
 
     // Draw the image
-    render_layout(row + 0, col + 0, this_mod, false);
+    // render_layout(row + 0, col + 0, this_mod, false);
     // Modifiers
     render_modifiers(row + 0, col + 7, this_mod);
     // Encoder

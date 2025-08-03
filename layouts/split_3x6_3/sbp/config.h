@@ -23,9 +23,9 @@
 
     // Rebrand the PCB
 #   undef PRODUCT
-#   define PRODUCT Protorne Keyboard
+#   define PRODUCT "Protorne Keyboard"
 #   undef MANUFACTURER
-#   define MANUFACTURER Waffles
+#   define MANUFACTURER "Waffles"
 
     // Audio output on pin A5 (actualy will be output on B1 using keymap init)
 #   ifdef AUDIO_ENABLE
@@ -39,7 +39,6 @@
 #       define RGB_DI_PIN B5
 #       undef RGBLED_NUM
 #       define RGBLED_NUM 54
-#       define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 #       define RGB_MATRIX_SPLIT { 27, 27 }
 #       define WS2812_PWM_DRIVER PWMD3
 #       define WS2812_PWM_CHANNEL 3
