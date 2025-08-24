@@ -35,11 +35,11 @@ Layouts are meant to be used for `dvorak` and `turkish-f` software keymaps.
 
 ```
 ┌─────┬─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┬─────┐
-│ ` ~ │ ' " │ , < │ . > │  P  │  Y  │   │  F  │  G  │  C  │  R  │  L  │ < > │
+│ / ? │ ' " │ , < │ . > │  P  │  Y  │   │  F  │  G  │  C  │  R  │  L  │ = + │
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
 │ \ | │ A/⌘ │ O/⌥ │ E/⌃ │ U/⇧ │  I  │   │  D  │ H/⇧ │ T/⌃ │ N/⌥ │ S/⌘ │ - _ │
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│ / ? │ ; : │ Q/⌤ │  J  │  K  │  X  │   │  B  │  M  │  W  │ V/⌤ │  Z  │ = + │
+│ < > │ ; : │ Q/⌤ │  J  │  K  │  X  │   │  B  │  M  │  W  │ V/⌤ │  Z  │ ` ~ │
 └─────┴─────┴─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┴─────┴─────┘
                   │Del⁰ │Tab¹ │Spc² │   │Ent³ │Esc⁴ │Bks⁵ │
                   └─────┴─────┴─────┘   └─────┴─────┴─────┘
@@ -49,21 +49,21 @@ Layouts are meant to be used for `dvorak` and `turkish-f` software keymaps.
 
 ```
 ┌─────┬─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┬─────┐
-│ + * │  F  │  G  │  Ğ  │  I  │  O  │   │  D  │  R  │  N  │  H  │  P  │ < > │
+│  Q  │  F  │  G  │  Ğ  │  I  │  O  │   │  D  │  R  │  N  │  H  │  P  │  W  │
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
 │  X  │ U/⌘ │ İ/⌥ │ E/⌃ │ A/⇧ │  Ü  │   │  T  │ K/⇧ │ M/⌃ │ L/⌥ │ Y/⌘ │  Ş  │
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│  Q  │  J  │ Ö/⌤ │  V  │  C  │  Ç  │   │  Z  │  S  │  B  │ ./⌤ │ , ; │  W  │
+│ < > │  J  │ Ö/⌤ │  V  │  C  │  Ç  │   │  Z  │  S  │  B  │ ./⌤ │ , ; │ + * │
 └─────┴─────┴─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┴─────┴─────┘
                   │Del⁰ │Tab¹ │Spc² │   │Ent³ │Esc⁴ │Bks⁵ │
                   └─────┴─────┴─────┘   └─────┴─────┴─────┘
 Alt-Gr
 ┌─────┬─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┬─────┐
-│ ¬ ± │ @   │     │     │ ¶   │ ô Ô │   │ ¥   │ ®   │     │ °   │ £   │ < > │
+│ ◌̋ ◌̊ │ @   │     │     │ ¶   │ ô Ô │   │ ¥   │ ®   │     │ °   │ £   │ ◌̃ ◌̆ │
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
 │ ` ◌̀ │ û Û │ î Î │ €   │ â Â │ û Û │   │ ₺   │     │ µ   │     │ ´ ◌́ │ # ◌̌ │
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│ ◌̋ ◌̊ │ « < │ » > │ “   │ ¢ © │ ”   │   │     │ §   │ ×   │ ÷ ◌̇ │ ·   │ ◌̃ ◌̆ │
+│ | ¦ │ « < │ » > │ “   │ ¢ © │ ”   │   │     │ §   │ ×   │ ÷ ◌̇ │ ·   │ ¬ ± │
 └─────┴─────┴─────┴─────┴─────┴─────┘   └─────┴─────┴─────┴─────┴─────┴─────┘
 ```
 
@@ -152,13 +152,13 @@ Thumb cluster mimics a mouse.
 ```
 Mouse (Left)                                           Settings (Right)
 ┌─────┬─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┬─────┐
-│     │Slow │ Bt6 │ Bt7 │ Bt8 │Fast │   │RGBTg│UGTg │Oled │ Vel.│EEClr│     │
+│     │Slow │ Bt6 │ Bt7 │ Bt8 │Fast │   │RGBTg│UGTg │Oled │FirDv│EEClr│     │
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
 │     │ ◀── │ ▼── │ ▲── │ ──▶ │ Bt4 │   │Spd± │Hue± │Sat± │Bri± │Mod± │     │
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
 │     │◀◀── │▼▼── │▲▲── │──▶▶ │ Bt5 │   │USpd±│UHue±│USat±│UBri±│UMod±│     │
 └─────┴─────┴─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┴─────┴─────┘
-                  │ Lft │ Mid │Right│   │Boot │Music│Game │
+                  │ Lft │ Mid │Right│   │Char │Music│Game │
                   └─────┴─────┴─────┘   └─────┴─────┴─────┘
 ```
 
@@ -167,9 +167,40 @@ Mouse (Left)                                           Settings (Right)
 - Arrows = Mouse movement (single = normal, double = scroll)
 - RGB = RGB Matrix
 - UG = Underglow
+- FirDvo = Firmware dvorak enable
 - EE = EEPROM
 - Vel = Velocikey
 - ± indicates increase/(shift)decrease
+
+### Character Layer
+
+The character layer is a one-tap layer accessible from the left thumb key of the settings layer.
+It provides quick access to complex characters, special symbols, and Unicode characters.
+After pressing any key on this layer, it automatically returns to the base layer.
+
+```
+┌─────┬─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┬─────┐
+│     │     │     │     │     │     │   │     │     │     │     │     │     │
+├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
+│     │     │     │     │     │     │   │     │     │     │     │     │     │
+├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
+│     │     │     │     │     │     │   │     │     │     │     │     │     │
+└─────┴─────┴─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┴─────┴─────┘
+                  │EXIT │     │     │   │     │     │     │
+                  └─────┴─────┴─────┘   └─────┴─────┴─────┘
+```
+
+**Character Categories:**
+- Top row: (To be filled)
+- Middle row: (To be filled)
+- Bottom row: (To be filled)
+- EXIT: Returns to base layer without typing a character
+
+**Usage:**
+1. Hold the Settings layer key (right pinky hold on base layer)
+2. Tap the Character layer key (left thumb)
+3. Press any character key - it will type and return to base
+4. Or press EXIT to return without typing
 
 ### Music Layer
 

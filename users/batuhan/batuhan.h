@@ -7,37 +7,38 @@
 #include "keymap_dvorak.h"
 
 // Import layout
-#include "sbp-macros.h"
-#include "sbp-keycodes.h"
-#include "sbp-layout.h"
+#include "batuhan-keycodes.h"
+#include "batuhan-layout.h"
+// TODO: Implement macros feature
+// #include "batuhan-macros.h"
 
 // Macros to use, this has base level code so not affected by enabled features
-#include "sbp-macros.h"
-// Audio from onboard speakers
-#ifdef AUDIO_ENABLE
+// #include "batuhan-macros.h"
 
-#include "sbp-audio.h"
-#endif // AUDIO_ENABLE
+// Audio from onboard speakers
+// #ifdef AUDIO_ENABLE
+// #include "batuhan-audio.h"
+// #endif // AUDIO_ENABLE
 
 // Underglow light using rgb LEDs
-#ifdef RGBLIGHT_ENABLE
-#include "sbp-rgb-light.h"
-#endif // RGBLIGHT_ENABLE
+// #ifdef RGBLIGHT_ENABLE
+// #include "batuhan-rgb-light.h"
+// #endif // RGBLIGHT_ENABLE
 
 // Keycap light using rgb LEDs
-#ifdef RGB_MATRIX_ENABLE
-#include "sbp-rgb-matrix.h"
-#endif // RGB_MATRIX_ENABLE
+// #ifdef RGB_MATRIX_ENABLE
+// #include "batuhan-rgb-matrix.h"
+// #endif // RGB_MATRIX_ENABLE
 
 // Rotary encoder
-#ifdef ENCODER_ENABLE
-#include "sbp-encoder.h"
-#endif // ENCODER_ENABLE
+// #ifdef ENCODER_ENABLE
+// #include "batuhan-encoder.h"
+// #endif // ENCODER_ENABLE
 
 // Oled screen
-#ifdef OLED_ENABLE
-#include "sbp-oled.h"
-#endif // OLED_ENABLE
+// #ifdef OLED_ENABLE
+// #include "batuhan-oled.h"
+// #endif // OLED_ENABLE
 
 // Structures to keep runtime/eeprom info on states.
 // For RGB runtime info, might be unneccessary now
@@ -105,12 +106,12 @@ extern userspace_runtime_t  userspace_runtime;
 extern userspace_config_t   userspace_config;
 
 // Macro to reduce boilerplate for weak function definitions
-#define SBP_WEAK_HOOK_VOID(name, params) \
+#define BATUHAN_WEAK_HOOK_VOID(name, params) \
     __attribute__((weak)) void name##_keymap params; \
     __attribute__((weak)) void name##_keymap params { } \
     void name##_user params
 
-#define SBP_WEAK_HOOK_RETURN(name, rettype, params, default_return) \
+#define BATUHAN_WEAK_HOOK_RETURN(name, rettype, params, default_return) \
     __attribute__((weak)) rettype name##_keymap params; \
     __attribute__((weak)) rettype name##_keymap params { return default_return; } \
     rettype name##_user params

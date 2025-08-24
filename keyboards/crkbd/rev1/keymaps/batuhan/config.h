@@ -3,10 +3,6 @@
  */
 #pragma once
 
-// Split definition; use the following to flash;
-//  pro-micro:      avrdude-split-left/right
-//  elite-c:        dfu-split-left/right
-
 // Code pertaining to Corne ARM; from Waffle's keymap
     // Use EE_HANDS to determine handedness
 #   define EE_HANDS
