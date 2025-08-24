@@ -1,0 +1,45 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Audio Features",
+        "description": "Implement audio features for QMK keyboard with King Gizzard guitar tabs",
+        "details": "Add musical audio capabilities to the QMK configuration by collecting guitar tabs and transcribing them into QMK's audio format for playback through the keyboard.",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [],
+        "priority": "medium",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Collect King Gizzard guitar tabs",
+            "description": "Gather guitar tabs from King Gizzard songs for transcription",
+            "details": "Research and collect guitar tabs that will be suitable for QMK audio playback",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 1
+          },
+          {
+            "id": 2,
+            "title": "Transcribe tabs to QMK format in user_song_list.h",
+            "description": "Convert collected guitar tabs into QMK audio format",
+            "details": "Transcribe the guitar tabs into QMK's musical note format and add them to user_song_list.h file in the userspace",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 1
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "currentId": 0,
+      "created": "2025-08-24T21:27:26.944Z",
+      "description": "Tasks for master context",
+      "updated": "2025-08-24T21:27:26.945Z"
+    }
+  },
+  "config": {
+    "activeTag": "master"
+  }
+}

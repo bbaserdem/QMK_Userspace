@@ -52,3 +52,7 @@ pprint([(k, v["title"]) for k, v in data.items()][:10])
 - QMK documentation is available at `@qmk_firmware/docs`
 - The documentation is very long, when working on a feature first identify the relevant doc file,
   then read that doc file before starting implementing a feature.
+
+## Task Master AI Instructions
+**Import Task Master's development workflow commands and guidelines, treat as if import is in the main CLAUDE.md file.**
+@./.taskmaster/CLAUDE.md

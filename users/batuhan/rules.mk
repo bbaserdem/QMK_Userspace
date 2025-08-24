@@ -36,9 +36,9 @@ SRC += batuhan.c
 # SRC += batuhan-macros.c
 
 # Audio code
-# ifeq ($(strip $(AUDIO_ENABLE)), yes)
-# SRC += batuhan-audio.c
-# endif
+ifeq ($(strip $(AUDIO_ENABLE)), yes)
+SRC += batuhan-audio.c
+endif
 
 # Rotary encoder stuff
 # ifeq ($(strip $(ENCODER_ENABLE)), yes)

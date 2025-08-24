@@ -1,0 +1,25 @@
+# Task ID: 1
+# Title: Audio Features
+# Status: pending
+# Dependencies: None
+# Priority: medium
+# Description: Implement audio features for QMK keyboard with King Gizzard guitar tabs
+# Details:
+Add musical audio capabilities to the QMK configuration by collecting guitar tabs and transcribing them into QMK's audio format for playback through the keyboard.
+
+# Test Strategy:
+
+
+# Subtasks:
+## 1. Collect King Gizzard guitar tabs [pending]
+### Dependencies: None
+### Description: Gather guitar tabs from King Gizzard songs for transcription
+### Details:
+Research and collect guitar tabs that will be suitable for QMK audio playback
+
+## 2. Transcribe tabs to QMK format in user_song_list.h [pending]
+### Dependencies: None
+### Description: Convert collected guitar tabs into QMK audio format
+### Details:
+Transcribe the guitar tabs into QMK's musical note format and add them to user_song_list.h file in the userspace
+

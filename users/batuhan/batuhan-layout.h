@@ -421,7 +421,7 @@ enum userspace_layers {
  *                   └─────┴─────┴─────┘   └─────┴─────┴─────┘
  */
 #define _MUL_3_ MU_REC, MU_STOP,MU_PLAY
-#define _MUR_3_ MU_TEMP,MU_OFF, MU_MOD
+#define _MUR_3_ MU_TEMP,MU_OFF, MU_NEXT
 #define _MU_01_ MU_MASK
 #define _MU_02_ MU_MASK,MU_MASK
 #define _MU_03_ _MU_02_,MU_MASK

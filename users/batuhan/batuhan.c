@@ -291,15 +291,14 @@ void eeconfig_init_user(void) {
  */
 BATUHAN_WEAK_HOOK_RETURN(process_record, bool, (uint16_t keycode, keyrecord_t* record), true) {
     // Return after running through all individual hooks
-    return process_record_keymap(keycode, record);
-    // TODO: Implement these features
-// #ifdef AUDIO_ENABLE
-//            && process_record_audio(keycode, record)
-// #endif // AUDIO_ENABLE
+    return process_record_keymap(keycode, record)
+#ifdef AUDIO_ENABLE
+           && process_record_audio(keycode, record)
+#endif // AUDIO_ENABLE
 // #ifdef ENCODER_ENABLE
 //            && process_record_encoder(keycode, record)
 // #endif // ENCODER_ENABLE
-//            && process_record_macro(keycode, record);
+           ;
 }
 
 /*---------------------*\
@@ -329,9 +328,9 @@ BATUHAN_WEAK_HOOK_RETURN(layer_state_set, layer_state_t, (layer_state_t state), 
 //     state = layer_state_set_rgblight(state);
 // #endif // RGBLIGHT_ENABLE
     // Audio playback
-// #ifdef AUDIO_ENABLE
-//     state = layer_state_set_audio(state);
-// #endif // AUDIO_ENABLE
+#ifdef AUDIO_ENABLE
+    state = layer_state_set_audio(state);
+#endif // AUDIO_ENABLE
 
     return state;
 }

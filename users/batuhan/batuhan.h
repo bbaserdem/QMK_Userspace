@@ -16,9 +16,9 @@
 // #include "batuhan-macros.h"
 
 // Audio from onboard speakers
-// #ifdef AUDIO_ENABLE
-// #include "batuhan-audio.h"
-// #endif // AUDIO_ENABLE
+#ifdef AUDIO_ENABLE
+#include "batuhan-audio.h"
+#endif // AUDIO_ENABLE
 
 // Underglow light using rgb LEDs
 // #ifdef RGBLIGHT_ENABLE
