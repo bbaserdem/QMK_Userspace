@@ -1,6 +1,3 @@
-This folder contains my [split\_3x6\_3](../../../default/split_3x6_3) board layouts
-Check out the [user readme](../../../../users/bbaserdem/readme.md) for more info.
-
 # Crkbd
 
 Using [this](https://github.com/ItsWaffle/waffle_corne) Proton-C compatible PCB.
@@ -12,4 +9,5 @@ using their `crkbd:rev1:arm` build.
 
 Build commands;
 
-* For ARM: `CFLAGS="-Wno-error=deprecated" qmk flash -kb crkdb/rev1 -km bbaserdem -bl dfu-util-split-{left,right}`
+* `qmk flash -kb crkbd/rev1 -km batuhan -bl dfu-util-split-left`
+* `qmk flash -kb crkbd/rev1 -km batuhan -bl dfu-util-split-right`
