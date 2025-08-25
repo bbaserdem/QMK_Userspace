@@ -258,15 +258,7 @@ void eeconfig_init_user(void) {
     
     // Set encoder states to sane defaults if enabled
 #ifdef ENCODER_ENABLE
-    // Initialize encoder 0 (left/first encoder)
-    userspace_config.bits.e0base = ENC_MODE_VOLUME;     // Default: volume control
-    userspace_config.bits.e0point = ENC_MODE_LATERAL;   // Mouse mode: horizontal scroll
-    userspace_config.bits.e0rgb = ENC_MODE_HUE;         // RGB mode: hue control
-    
-    // Initialize encoder 1 (right/second encoder)
-    userspace_config.bits.e1base = ENC_MODE_SONG;       // Default: song control (media next/prev)
-    userspace_config.bits.e1point = ENC_MODE_VERTICAL;  // Mouse mode: vertical scroll  
-    userspace_config.bits.e1rgb = ENC_MODE_VALUE;       // RGB mode: brightness control
+    reset_encoder_state();
 #endif // ENCODER_ENABLE
     
     // Set default layout
@@ -295,9 +287,9 @@ BATUHAN_WEAK_HOOK_RETURN(process_record, bool, (uint16_t keycode, keyrecord_t* r
 #ifdef AUDIO_ENABLE
            && process_record_audio(keycode, record)
 #endif // AUDIO_ENABLE
-// #ifdef ENCODER_ENABLE
-//            && process_record_encoder(keycode, record)
-// #endif // ENCODER_ENABLE
+#ifdef ENCODER_ENABLE
+           && process_record_encoder(keycode, record)
+#endif // ENCODER_ENABLE
            ;
 }
 

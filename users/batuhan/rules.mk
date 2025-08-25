@@ -41,9 +41,9 @@ SRC += batuhan-audio.c
 endif
 
 # Rotary encoder stuff
-# ifeq ($(strip $(ENCODER_ENABLE)), yes)
-# SRC += batuhan-encoder.c
-# endif
+ifeq ($(strip $(ENCODER_ENABLE)), yes)
+SRC += batuhan-encoder.c
+endif
 
 # RGB LED (Underglow) code
 # ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
