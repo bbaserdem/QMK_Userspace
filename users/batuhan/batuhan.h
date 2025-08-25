@@ -19,9 +19,9 @@
 #endif // AUDIO_ENABLE
 
 // Underglow light using rgb LEDs
-// #ifdef RGBLIGHT_ENABLE
-// #include "batuhan-rgb-light.h"
-// #endif // RGBLIGHT_ENABLE
+#ifdef RGBLIGHT_ENABLE
+#include "batuhan-rgb-light.h"
+#endif // RGBLIGHT_ENABLE
 
 // Keycap light using rgb LEDs
 #ifdef RGB_MATRIX_ENABLE

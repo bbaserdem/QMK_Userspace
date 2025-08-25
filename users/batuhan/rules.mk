@@ -46,9 +46,9 @@ SRC += batuhan-encoder.c
 endif
 
 # RGB LED (Underglow) code
-# ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
-# SRC += batuhan-rgb-light.c
-# endif
+ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
+SRC += batuhan-rgb-light.c
+endif
 
 # RGB LED (Perkey) code
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
