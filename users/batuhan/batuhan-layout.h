@@ -233,40 +233,40 @@ enum userspace_layers {
 /* Extra characters layer
  * This is accessed via unicode; so IBus only.
  * ┌─────┬─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┬─────┐
- * │     │     │     │     │     │     │   │     │     │     │     │     │     │
+ * │     │  α  │  β  │  γ  │  δ  │  ε  │   │  ζ  │  η  │  θ  │  λ  │  μ  │     │
  * ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
- * │     │     │     │     │     │     │   │     │     │     │     │     │     │
+ * │Leny │  Å  │  ₿  │  Γ  │  Δ  │  Ω  │   │  Ξ  │  Π  │  Σ  │  Φ  │  Ψ  │TFlip│
  * ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
- * │     │     │     │     │     │     │   │     │     │     │     │     │     │
+ * │     │  ℏ  │ PGP │     │     │  ω  │   │  ξ  │  π  │  σ  │  φ  │  ψ  │     │
  * └─────┴─────┴─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┴─────┴─────┘
  *                   │EXIT │     │     │   │     │     │Game │
  *                   └─────┴─────┴─────┘   └─────┴─────┴─────┘
  *
  */
 // Row 1
-#define _CL1_1_ KC_NO
-#define _CL1_5_ KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO
-#define _CR1_5_ KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO
-#define _CR1_1_ KC_NO
+#define _CL1_1_ _______
+#define _CL1_5_ G_ALPHA,G_BETA, G_GAMMA,G_DELTA,G_EPSLN
+#define _CR1_5_ G_ZETA, G_ETA,  G_THETA,G_LAMBD,G_MU
+#define _CR1_1_ _______
 #define _CL1_6_ _CL1_1_,_CL1_5_
 #define _CR1_6_ _CR1_5_,_CR1_1_
 // Row 2
-#define _CL2_1_ KC_NO
-#define _CL2_5_ KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO
-#define _CR2_5_ KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO
-#define _CR2_1_ KC_NO
+#define _CL2_1_ G_LENY
+#define _CL2_5_ G_ANGST,G_BTCN, G_CGAMM,G_CDELT,G_COMEG
+#define _CR2_5_ G_CXI,  G_CPI,  G_CSIGM,G_CPHI, G_CPSI
+#define _CR2_1_ G_TFLIP
 #define _CL2_6_ _CL2_1_,_CL2_5_
 #define _CR2_6_ _CR2_5_,_CR2_1_
 // Row 3
-#define _CL3_1_ KC_NO
-#define _CL3_5_ KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO
-#define _CR3_5_ KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO
-#define _CR3_1_ KC_NO
+#define _CL3_1_ _______
+#define _CL3_5_ G_PLNCK,G_PGPK, KC_NO,  KC_NO,  G_OMEGA
+#define _CR3_5_ G_XI,   G_PI,   G_SIGMA,G_PHI,  G_PSI
+#define _CR3_1_ _______
 #define _CL3_6_ _CL3_1_,_CL3_5_
 #define _CR3_6_ _CR3_5_,_CR3_1_
 // Row 4
-#define _CL4_3_ KC_ESC, KC_RSFT,B_PGPK
-#define _CR4_3_ B_DVOR, KC_LSFT,B_GAME
+#define _CL4_3_ KC_ESC, _______,_______
+#define _CR4_3_ _______,_______,B_GAME
 
 /* Symbols layer
  *  This layer is stable across keymap emulations
