@@ -273,6 +273,41 @@ void eeconfig_init_user(void) {
     mark_config_dirty(); // Ensure it gets written
 }
 
+/*----------------------------*\
+|*-----LAYOUT MANAGEMENT-----*|
+\*----------------------------*/
+// Layout names for display
+static const char* layout_names[] = {
+    [LAYOUT_DVORAK]   = "Dvorak",
+    [LAYOUT_TURKISHF] = "Turkish-F",
+    [LAYOUT_QWERTY]   = "QWERTY",
+    [LAYOUT_RESERVED] = "Reserved"
+};
+
+// Cycle through layouts
+void cycle_layout(void) {
+    uint8_t current = userspace_config.bits.layout;
+    
+    // Cycle through Dvorak -> Turkish-F -> QWERTY -> Dvorak
+    if (current >= LAYOUT_QWERTY) {
+        userspace_config.bits.layout = LAYOUT_DVORAK;
+    } else {
+        userspace_config.bits.layout = current + 1;
+    }
+    
+    // Mark config as dirty for EEPROM write
+    mark_config_dirty();
+}
+
+// Get current layout name
+const char* get_layout_name(void) {
+    uint8_t layout = userspace_config.bits.layout;
+    if (layout > LAYOUT_RESERVED) {
+        layout = LAYOUT_DVORAK;  // Fallback
+    }
+    return layout_names[layout];
+}
+
 /*------------------------*\
 |*-----PROCESS RECORD-----*|
 \*------------------------*/
@@ -282,8 +317,19 @@ void eeconfig_init_user(void) {
  *  Audio hooks
  */
 BATUHAN_WEAK_HOOK_RETURN(process_record, bool, (uint16_t keycode, keyrecord_t* record), true) {
+    // Handle our custom keycodes
+    switch (keycode) {
+        case B_LYCL:
+            if (record->event.pressed) {
+                cycle_layout();
+            }
+            return false;
+            break;
+    }
+    
     // Return after running through all individual hooks
     return process_record_keymap(keycode, record)
+           && process_record_glyph(keycode, record)
 #ifdef AUDIO_ENABLE
            && process_record_audio(keycode, record)
 #endif // AUDIO_ENABLE
@@ -352,21 +398,15 @@ BATUHAN_WEAK_HOOK_VOID(led_set, (uint8_t usb_led)) {
 |*-----SUSPEND-----*|
 \*-----------------*/
 /* Suspend stuff here, mostly for the rgb lighting.
+ * Note: RGB Matrix suspend/wake is handled automatically by QMK when 
+ * RGB_MATRIX_SLEEP is defined in config.h
  */
 BATUHAN_WEAK_HOOK_VOID(suspend_power_down, (void)) {
     suspend_power_down_keymap();
-    // TODO: Implement RGB matrix sleep hook
-// #ifdef RGB_MATRIX_ENABLE
-//     suspend_power_down_rgbmatrix();
-// #endif // RGB_MATRIX_ENABLE
 }
 
 BATUHAN_WEAK_HOOK_VOID(suspend_wakeup_init, (void)) {
     suspend_wakeup_init_keymap();
-    // TODO: Implement RGB matrix sleep hook
-// #ifdef RGB_MATRIX_ENABLE
-//     suspend_wakeup_init_rgbmatrix();
-// #endif // RGB_MATRIX_ENABLE
 }
 
 /*------------------*\
@@ -375,15 +415,14 @@ BATUHAN_WEAK_HOOK_VOID(suspend_wakeup_init, (void)) {
 /* Shutdown stuff here; for when entering bootmode.
  */
 BATUHAN_WEAK_HOOK_RETURN(shutdown, bool, (bool jump_to_bootloader), true) {
-    // TODO: Implement these features
     // Underglow LED hook on boot
 // #ifdef RGBLIGHT_ENABLE
 //     shutdown_rgblight();
 // #endif // RGBLIGHT_ENABLE
     // Perkey led hook on boot
-// #ifdef RGB_MATRIX_ENABLE
-//     shutdown_rgbmatrix();
-// #endif // RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
+    shutdown_rgbmatrix(jump_to_bootloader);
+#endif // RGB_MATRIX_ENABLE
     // Keymap hooks
     shutdown_keymap(jump_to_bootloader);
     return true;

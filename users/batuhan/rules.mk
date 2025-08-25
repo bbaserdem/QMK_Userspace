@@ -8,8 +8,8 @@ endif
 
 # These should be enabled in all boards
 EXTRAKEY_ENABLE = yes		# OS signals like volume control
-UNICODE_COMMON = yes		# Used for unicode character emulation
-UNICODEMAP_ENABLE = no		# We will use unicodemap feature (disabled until map is defined)
+UNICODE_COMMON = no			# Used for unicode character emulation
+UNICODEMAP_ENABLE = no		# House made unicode emulation
 OS_DETECTION_ENABLE = yes	# Auto-detect where we are hooked up
 LAYER_LOCK_ENABLE = yes		# Enables locking layers
 
@@ -32,8 +32,8 @@ WPM_ENABLE ?= yes       # Get WPM reports as you type
 # Userspace code
 SRC += batuhan.c
 
-# Macros
-# SRC += batuhan-macros.c
+# Glyphs and unicode
+SRC += batuhan-glyphs.c
 
 # Audio code
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
@@ -51,9 +51,9 @@ endif
 # endif
 
 # RGB LED (Perkey) code
-# ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
-# SRC += batuhan-rgb-matrix.c
-# endif
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
+SRC += batuhan-rgb-matrix.c
+endif
 
 # OLED code
 # ifeq ($(strip $(OLED_ENABLE)), yes)

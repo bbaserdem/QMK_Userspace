@@ -9,11 +9,9 @@
 // Import layout
 #include "batuhan-keycodes.h"
 #include "batuhan-layout.h"
-// TODO: Implement macros feature
-// #include "batuhan-macros.h"
 
-// Macros to use, this has base level code so not affected by enabled features
-// #include "batuhan-macros.h"
+// Glyphs and unicode handling
+#include "batuhan-glyphs.h"
 
 // Audio from onboard speakers
 #ifdef AUDIO_ENABLE
@@ -26,9 +24,9 @@
 // #endif // RGBLIGHT_ENABLE
 
 // Keycap light using rgb LEDs
-// #ifdef RGB_MATRIX_ENABLE
-// #include "batuhan-rgb-matrix.h"
-// #endif // RGB_MATRIX_ENABLE
+#ifdef RGB_MATRIX_ENABLE
+#include "batuhan-rgb-matrix.h"
+#endif // RGB_MATRIX_ENABLE
 
 // Rotary encoder - include early for bit definitions
 #ifdef ENCODER_ENABLE
@@ -56,16 +54,16 @@ typedef struct __attribute__((packed)) {
     uint8_t e0base  :ENC_BASE_BITS;    // Base layer mode
     uint8_t e0point :ENC_POINTER_BITS; // Mouse layer mode
     uint8_t e0rgb   :ENC_RGB_BITS;     // RGB layer mode
-    
-    // Encoder 1 (right/second encoder) states  
+
+    // Encoder 1 (right/second encoder) states
     uint8_t e1base  :ENC_BASE_BITS;    // Base layer mode
     uint8_t e1point :ENC_POINTER_BITS; // Mouse layer mode
     uint8_t e1rgb   :ENC_RGB_BITS;     // RGB layer mode
 #endif // ENCODER_ENABLE
-    
+
     // Other configuration
     uint8_t layout  :2; // Keymap layout selection (up to 4 layouts)
-    
+
     // Bit usage automatically calculated from encoder mode counts
     // If encoder disabled, only layout uses 2 bits
 } userspace_config_bits_t;
@@ -78,6 +76,14 @@ typedef union {
 // Compile-time size checks for data structure portability
 _Static_assert(sizeof(userspace_config_t) == 4, "userspace_config_t size mismatch");
 _Static_assert(sizeof(userspace_runtime_t) == 4, "userspace_runtime_t size mismatch");
+
+// Layout definitions
+enum layout_types {
+    LAYOUT_DVORAK = 0,
+    LAYOUT_TURKISHF = 1,
+    LAYOUT_QWERTY = 2,
+    LAYOUT_RESERVED = 3
+};
 
 // Broadcast us, so everyone else can use us
 extern userspace_runtime_t  userspace_runtime;
@@ -98,6 +104,12 @@ extern userspace_config_t   userspace_config;
 
 // EEPROM wear leveling function
 void mark_config_dirty(void);
+
+// Cycle through layouts
+void cycle_layout(void);
+
+// Get current layout name for display
+const char* get_layout_name(void);
 
 // Runs before all initialization
 void keyboard_pre_init_keymap(void);
