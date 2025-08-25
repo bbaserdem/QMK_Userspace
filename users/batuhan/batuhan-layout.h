@@ -373,7 +373,7 @@ enum userspace_layers {
 
 /* Settings layer (formerly keyboard)
  * ┌─────┬─────┬─────┬─────┬─────┐
- * │RGBTg│UGTg │Oled │FirDv│EEClr│
+ * │RGBTg│UGTg │KLayt│FirDv│EEClr│
  * ├─────┼─────┼─────┼─────┼─────┤
  * │Spd± │Hue± │Sat± │Bri± │Mod± │
  * ├─────┼─────┼─────┼─────┼─────┤
@@ -382,7 +382,7 @@ enum userspace_layers {
  * │Char │Music│Game │
  * └─────┴─────┴─────┘
  */
-#define _SE1_5_ RM_TOGG,UG_TOGG,B_OLED, B_DVOR, EE_CLR
+#define _SE1_5_ RM_TOGG,UG_TOGG,B_LYCL, B_DVOR, EE_CLR
 #define _SE1_6_ _SE1_5_,KC_NO
 #define _SE2_5_ RM_SPDU,RM_HUEU,RM_SATU,RM_VALU,RM_NEXT
 #define _SE2_6_ _SE2_5_,KC_NO

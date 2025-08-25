@@ -14,15 +14,11 @@
 enum userspace_custom_keycodes {
     // Safe stuff
     B_SAFE = PLACEHOLDER_SAFE_RANGE,
-    // Macro key
-    B_PGPK,
     // Encoder buttons
 #   ifdef ENCODER_ENABLE
     B_ENC0,
     B_ENC1,
 #   endif // ENCODER_ENABLE
-    // Oled editor
-    B_OLED,
     // Layout cycling
     B_LYCL,
     //use for keymap specific codes

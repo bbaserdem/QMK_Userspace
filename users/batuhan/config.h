@@ -58,10 +58,10 @@
 #endif // MOUSEKEY_ENABLE
 
 // Tap-hold settings
-#define TAPPING_TERM 200
-#define TAP_CODE_DELAY 20
+#define TAPPING_TERM 250
+#define PERMISSIVE_HOLD
 #define HOLD_ON_OTHER_KEY_PRESS
-#define QUICK_TAP_TERM 150
+#define TAP_CODE_DELAY 100
 
 // Backlight settings
 #ifdef BACKLIGHT_ENABLE
@@ -78,28 +78,24 @@
 //#   define AUDIO_ENABLE_TONE_MULTIPLEXING
     // Make findable songs as defaults
 #   ifdef HOROLOGY
-#   define STARTUP_SONG    SONG(HOROLOGY)
+#       define STARTUP_SONG    SONG(HOROLOGY)
 #   endif
 #   ifdef PEOPLE_VULTURES
-#   define GOODBYE_SONG    SONG(PEOPLE_VULTURES)
+#       define GOODBYE_SONG    SONG(PEOPLE_VULTURES)
 #   endif
 #   ifdef NONAGON_INFINITY
-#   define MUSIC_ON_SONG   SONG(NONAGON_INFINITY)
+#       define MUSIC_ON_SONG   SONG(NONAGON_INFINITY)
 #   endif
 #   ifdef WAH_WAH
-#   define MUSIC_OFF_SONG  SONG(WAH_WAH)
+#       define MUSIC_OFF_SONG  SONG(WAH_WAH)
 #   endif
     // Audio code expects these to be defined
 #   ifdef BIG_FIG_WASP
-#   define GAME_ON_SONG    SONG(BIG_FIG_WASP)
+#       define GAME_ON_SONG    SONG(BIG_FIG_WASP)
 #   else
-#   define GAME_ON_SONG    SONG(USSR_ANTHEM)
+#       define GAME_ON_SONG    SONG(USSR_ANTHEM)
 #   endif
-#   ifdef POLYGONDWANALAND
 #   define GAME_OFF_SONG   SONG(POLYGONDWANALAND)
-#   else
-#   define GAME_OFF_SONG   SONG(NOCTURNE_OP_9_NO_1)
-#   endif
 #endif // AUDIO_ENABLE
 
 // OLED definitions
