@@ -23,6 +23,8 @@ enum userspace_custom_keycodes {
 #   endif // ENCODER_ENABLE
     // Oled editor
     B_OLED,
+    // Layout cycling
+    B_LYCL,
     //use for keymap specific codes
     KEYMAP_SAFE_RANGE
 };
