@@ -1,7 +1,9 @@
 /* Copyright 2025 Batuhan Başerdem
  * <baserdem.batuhan@gmail.com> @bbaserdem
- *
- * Custom song definitions for batuhan userspace
+ */
+// clang-format off
+
+/* Custom song definitions for batuhan userspace
  * This file is automatically included when it exists
  */
 #pragma once
@@ -86,8 +88,8 @@
 // Simple guitar riff example (Smoke on the Water style)
 // Tab: G string: 0-3-5, 0-3-6-5
 #define GUITAR_RIFF \
-    TAB_Q(_G3, _00), TAB_Q(_G3, _03), TAB_H(_G3, _05), \
-    TAB_Q(_G3, _00), TAB_Q(_G3, _03), TAB_E(_G3, _06), TAB_QD(_G3, _05)
+    TAB_W(_G3, _00), TAB_W(_G3, _03), TAB_B(_G3, _05), \
+    TAB_W(_G3, _00), TAB_W(_G3, _03), TAB_Q(_G3, _06), TAB_HD(_G3, _05)
 
 // Polygon has CS2 FS2 B2 E3 GS3 CS3 tuning, and 5/4 time scale
 // https://www.songsterr.com/a/wsa/king-gizzard-the-lizard-wizard-crumbling-castle-tab-s447026
@@ -104,3 +106,72 @@
     TAB_Q(_E3,_14), TAB_H(_E3,_10), TAB_Q(_E3,_10), TAB_Q(_E3,_12), \
     TAB_H(_E3,_09), TAB_Q(_E3,_09), TAB_Q(_E3,_10), TAB_S(_E3,_09), TAB_S(_E3,_10), TAB_E(_E3,_09), \
     TAB_Q(_E3,_07), TAB_Q(_E3,_07), TAB_Q(_B2,_00), TAB_Q(_E3,_00), TAB_Q(_B2,_00)
+
+// Horology has CS2 FS2 B2 E3 GS3 CS3 tuning, and 7/8 time scale
+// https://www.songsterr.com/a/wsa/king-gizzard-the-lizard-wizard-horology-tab-s462073
+#define HOROLOGY \
+    TAB_E(_E3 ,_07), TAB_E(_B2 ,_00), TAB_E(_E3 ,_10), TAB_E(_B2 ,_00), TAB_E(_GS3,_08), TAB_E(_GS3,_10), TAB_E(_B2 ,_00), \
+    TAB_E(_E3 ,_07), TAB_E(_B2 ,_00), TAB_E(_E3 ,_10), TAB_E(_B2 ,_00), TAB_E(_CS3,_08), TAB_E(_GS3,_10), TAB_E(_B2 ,_00), \
+    TAB_E(_E3 ,_10), TAB_E(_B2 ,_00), TAB_E(_GS3,_08), TAB_E(_GS3,_10), TAB_E(_B2 ,_00), TAB_E(_E3 ,_07), TAB_E(_B2 ,_00), \
+    TAB_E(_E3 ,_10), TAB_E(_B2 ,_00), TAB_E(_GS3,_08), TAB_E(_E3 ,_10), TAB_E(_B2 ,_00), TAB_E(_E3 ,_07), TAB_E(_B2 ,_00), \
+    TAB_E(_E3 ,_10), TAB_E(_B2 ,_00), TAB_E(_GS3,_08), TAB_E(_GS3,_10), TAB_E(_B2 ,_00), TAB_E(_E3 ,_07), TAB_E(_B2 ,_00), \
+    TAB_E(_E3 ,_10), TAB_E(_B2 ,_00), TAB_E(_CS3,_08), TAB_E(_GS3,_10), TAB_E(_B2 ,_00), TAB_E(_E3 ,_10), TAB_E(_B2 ,_00), \
+    TAB_E(_GS3,_08), TAB_E(_GS3,_10), TAB_E(_B2 ,_00), TAB_E(_E3 ,_07), TAB_E(_B2 ,_00), TAB_E(_E3 ,_10), TAB_E(_B2 ,_00), \
+    TAB_E(_GS3,_08), TAB_E(_E3, _10), TAB_E(_B2 ,_00), TAB_E(_GS3,_08), TAB_E(_GS3,_10), TAB_Q(_B2 ,_00)
+
+// People Vultures has E2 A2 D3 G3 B3 E4 tuning, and 4/4 time scale (basic)
+// https://www.songsterr.com/a/wsa/king-gizzard-the-lizard-wizard-people-vultures-tab-s453822
+#define PEOPLE_VULTURES \
+    TAB_Q(_D3,_07), TAB_Q(_D3,_05), TAB_Q(_D3,_08), TAB_Q(_D3,_07), \
+    TAB_Q(_D3,_10), TAB_Q(_D3,_12), TAB_Q(_D3,_08), TAB_Q(_D3,_07), \
+    TAB_Q(_D3,_07), TAB_Q(_D3,_05), TAB_Q(_D3,_08), TAB_Q(_D3,_07), \
+    TAB_Q(_D3,_10), TAB_Q(_D3,_12), TAB_Q(_D3,_08), TAB_Q(_D3,_07), \
+    TAB_Q(_D3,_07), TAB_Q(_D3,_05), TAB_Q(_D3,_08), TAB_Q(_D3,_07), \
+    TAB_Q(_D3,_10), TAB_Q(_D3,_12), TAB_Q(_D3,_08), TAB_Q(_D3,_07), \
+    TAB_Q(_D3,_07), TAB_Q(_D3,_05), TAB_Q(_D3,_08), TAB_Q(_D3,_07), \
+    TAB_Q(_D3,_10), TAB_Q(_D3,_12), TAB_Q(_D3,_08), TAB_Q(_D3,_07), \
+    TAB_W(_D3,_07)
+
+// Robot Stop has E2 A2 D3 G3 B3 E4 tuning, and 7/8 time scale
+// https://www.songsterr.com/a/wsa/king-gizzard-the-lizard-wizard-robot-stop-tab-s450234
+#define ROBOT_STOP \
+    TAB_S(_D3,_09), TAB_S(_A2,_07), TAB_S(_A2,_07), TAB_S(_A2,_07), TAB_S(_A2,_07), TAB_S(_A2,_07), \
+    TAB_E(_A2,_07), TAB_S(_A2,_05), TAB_S(_A2,_07), TAB_S(_A2,_07), TAB_S(_A2,_07), TAB_E(_REST,_00), \
+    TAB_S(_D3,_09), TAB_S(_A2,_07), TAB_S(_A2,_07), TAB_S(_A2,_07), TAB_S(_A2,_07), TAB_S(_A2,_07), \
+    TAB_E(_A2,_07), TAB_S(_A2,_10), TAB_S(_A2,_10), TAB_S(_A2,_10), TAB_S(_A2,_09), TAB_E(_REST,_00), \
+    TAB_S(_D3,_09), TAB_S(_A2,_07), TAB_S(_A2,_07), TAB_S(_A2,_07), TAB_S(_A2,_07), TAB_S(_A2,_07), \
+    TAB_E(_A2,_07), TAB_S(_A2,_05), TAB_S(_A2,_07), TAB_S(_A2,_07), TAB_S(_A2,_07), TAB_E(_REST,_00), \
+    TAB_S(_D3,_09), TAB_S(_A2,_07), TAB_S(_A2,_07), TAB_S(_A2,_07), TAB_S(_A2,_07), TAB_S(_A2,_07), \
+    TAB_E(_A2,_07), TAB_S(_A2,_10), TAB_S(_A2,_10), TAB_S(_A2,_10), TAB_S(_A2,_09), TAB_E(_REST,_00)
+
+// Wah Wah has E2 A2 D3 G3 B3 E4 tuning, and 5/8 time scale
+// https://www.songsterr.com/a/wsa/king-gizzard-the-lizard-wizard-wah-wah-tab-s453821
+#define WAH_WAH \
+    TAB_SD(_E2,_07), TAB_SD(_E2,_10), TAB_S(_A2,_07), TAB_S(_A2,_09), \
+    TAB_SD(_E2,_07), TAB_SD(_E2,_10), TAB_S(_A2,_07), TAB_S(_A2,_09), \
+    TAB_SD(_D3,_09), TAB_SD(_D3,_07), TAB_S(_D3,_06), TAB_S(_D3,_07), \
+    TAB_SD(_D3,_09), TAB_SD(_D3,_07), TAB_S(_D3,_06), TAB_S(_D3,_07), \
+    TAB_SD(_E2,_07), TAB_SD(_E2,_10), TAB_S(_A2,_07), TAB_S(_A2,_09), \
+    TAB_SD(_E2,_07), TAB_SD(_E2,_10), TAB_S(_A2,_07), TAB_S(_A2,_09), \
+    TAB_SD(_D3,_09), TAB_SD(_D3,_07), TAB_S(_D3,_06), TAB_S(_D3,_07), \
+    TAB(_D3,_09,20)
+
+// Big Fig Wasp has E2 A2 D3 G3 B3 E4 tuning, and 4/4 time scale (basic)
+// https://www.songsterr.com/a/wsa/king-gizzard-the-lizard-wizard-big-fig-wasp-tab-s450272
+#define BIG_FIG_WASP \
+    TAB_E(_A2,_07), TAB_E(_E2,_00), TAB_E(_A2,_10), TAB_E(_E2,_00), \
+    TAB_E(_D3,_07), TAB_E(_E2,_00), TAB_E(_D3,_09), TAB_E(_E2,_00), \
+    TAB_E(_A2,_07), TAB_E(_E2,_00), TAB_E(_A2,_10), TAB_E(_E2,_00), \
+    TAB_E(_D3,_07), TAB_E(_E2,_00), TAB_E(_D3,_09), TAB_E(_E2,_00), \
+    TAB_E(_A2,_07), TAB_E(_E2,_09), TAB_E(_A2,_10), TAB_E(_E2,_09), \
+    TAB_E(_D3,_07), TAB_E(_E2,_09), TAB_E(_D3,_09), TAB_E(_E2,_09), \
+    TAB_E(_A2,_07), TAB_E(_E2,_09), TAB_E(_D3,_12), TAB_E(_E2,_10), \
+    TAB_E(_D3,_09), TAB_E(_E2,_10), TAB_E(_D3,_12), TAB_E(_E2,_10), \
+    TAB_E(_A2,_07), TAB_E(_E2,_00), TAB_E(_A2,_10), TAB_E(_E2,_00), \
+    TAB_E(_D3,_07), TAB_E(_E2,_00), TAB_E(_D3,_09), TAB_E(_E2,_00), \
+    TAB_E(_A2,_07), TAB_E(_E2,_00), TAB_E(_A2,_10), TAB_E(_E2,_00), \
+    TAB_E(_D3,_07), TAB_E(_E2,_00), TAB_E(_D3,_09), TAB_E(_E2,_00), \
+    TAB_E(_A2,_07), TAB_E(_E2,_09), TAB_E(_A2,_10), TAB_E(_E2,_09), \
+    TAB_E(_D3,_07), TAB_E(_E2,_09), TAB_E(_D3,_09), TAB_E(_E2,_09), \
+    TAB_E(_A2,_07), TAB_E(_E2,_09), TAB_E(_D3,_12), TAB_E(_E2,_10), \
+    TAB_E(_D3,_09), TAB_E(_E2,_10), TAB_E(_D3,_12), TAB_E(_E2,_10)

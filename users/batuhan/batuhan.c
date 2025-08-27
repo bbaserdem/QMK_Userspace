@@ -1,8 +1,24 @@
 /* Copyright 2021 Batuhan Başerdem
  * <baserdem.batuhan@gmail.com> @bbaserdem
  */
+// clang-format off
 
 #include "batuhan.h"
+
+// Include necessary module headers
+#include "src/macros/batuhan-macros.h"
+
+#ifdef AUDIO_ENABLE
+#include "src/audio/batuhan-audio.h"
+#endif
+
+#ifdef ENCODER_ENABLE
+#include "src/encoder/batuhan-encoder.h"
+#endif
+
+#ifdef RGB_MATRIX_ENABLE
+#include "src/rgb-matrix/batuhan-rgb-matrix.h"
+#endif
 
 // Need memcpy and memcmp from string.h along with transfer stuff
 #ifdef SPLIT_KEYBOARD
@@ -145,10 +161,10 @@ BATUHAN_WEAK_HOOK_VOID(keyboard_post_init, (void)) {
 
     // Load configuration from EEPROM with validation
     userspace_config.raw = eeconfig_read_user();
-    
+
     // Validate the loaded configuration
     bool needs_init = false;
-    
+
     // Check if encoder values are within valid ranges
 #ifdef ENCODER_ENABLE
     if (userspace_config.bits.e0base >= ENC_MODE_BASE_COUNT ||
@@ -160,12 +176,12 @@ BATUHAN_WEAK_HOOK_VOID(keyboard_post_init, (void)) {
         needs_init = true;
     }
 #endif
-    
+
     // Check if layout value is valid (2 bits = max value 3)
     if (userspace_config.bits.layout > 3) {
         needs_init = true;
     }
-    
+
     // If invalid or uninitialized (all 0xFF), reinitialize
     if (needs_init || userspace_config.raw == 0xFFFFFFFF) {
         eeconfig_init_user();
@@ -177,7 +193,7 @@ BATUHAN_WEAK_HOOK_VOID(keyboard_post_init, (void)) {
     // Register the transactions
     transaction_register_rpc(RPC_ID_CONFIG_SYNC, userspace_config_sync);
     transaction_register_rpc(RPC_ID_RUNTIME_SYNC, userspace_runtime_sync);
-    
+
     if (is_keyboard_master()) {
         // Update the transport variable
         userspace_transport_update();
@@ -255,19 +271,19 @@ BATUHAN_WEAK_HOOK_VOID(housekeeping_task, (void)) {
 void eeconfig_init_user(void) {
     // Set everything to default
     userspace_config.raw = 0;
-    
+
     // Set encoder states to sane defaults if enabled
 #ifdef ENCODER_ENABLE
     reset_encoder_state();
 #endif // ENCODER_ENABLE
-    
+
     // Set default layout
     userspace_config.bits.layout = 0;
-    
+
     // Initialize runtime state
     userspace_runtime.raw = 0;
     userspace_runtime.rgb_sleep = false;
-    
+
     // Update the eeprom with the new defaults
     eeconfig_update_user(userspace_config.raw);
     mark_config_dirty(); // Ensure it gets written
@@ -287,14 +303,14 @@ static const char* layout_names[] = {
 // Cycle through layouts
 void cycle_layout(void) {
     uint8_t current = userspace_config.bits.layout;
-    
+
     // Cycle through Dvorak -> Turkish-F -> QWERTY -> Dvorak
     if (current >= LAYOUT_QWERTY) {
         userspace_config.bits.layout = LAYOUT_DVORAK;
     } else {
         userspace_config.bits.layout = current + 1;
     }
-    
+
     // Mark config as dirty for EEPROM write
     mark_config_dirty();
 }
@@ -326,7 +342,7 @@ BATUHAN_WEAK_HOOK_RETURN(process_record, bool, (uint16_t keycode, keyrecord_t* r
             return false;
             break;
     }
-    
+
     // Return after running through all individual hooks
     return process_record_keymap(keycode, record)
            && process_record_glyph(keycode, record)
@@ -398,7 +414,7 @@ BATUHAN_WEAK_HOOK_VOID(led_set, (uint8_t usb_led)) {
 |*-----SUSPEND-----*|
 \*-----------------*/
 /* Suspend stuff here, mostly for the rgb lighting.
- * Note: RGB Matrix suspend/wake is handled automatically by QMK when 
+ * Note: RGB Matrix suspend/wake is handled automatically by QMK when
  * RGB_MATRIX_SLEEP is defined in config.h
  */
 BATUHAN_WEAK_HOOK_VOID(suspend_power_down, (void)) {

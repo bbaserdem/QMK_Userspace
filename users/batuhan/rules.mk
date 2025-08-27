@@ -32,27 +32,28 @@ WPM_ENABLE ?= yes       # Get WPM reports as you type
 # Userspace code
 SRC += batuhan.c
 
-# Glyphs and unicode
-SRC += batuhan-glyphs.c
+# Macros and glyphs
+SRC += src/macros/batuhan-macros.c
+SRC += src/batuhan-glyphs.c
 
 # Audio code
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
-SRC += batuhan-audio.c
+SRC += src/audio/batuhan-audio.c
 endif
 
 # Rotary encoder stuff
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
-SRC += batuhan-encoder.c
+SRC += src/encoder/batuhan-encoder.c
 endif
 
 # RGB LED (Underglow) code
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
-SRC += batuhan-rgb-light.c
+SRC += src/rgb-light/batuhan-rgb-light.c
 endif
 
 # RGB LED (Perkey) code
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
-SRC += batuhan-rgb-matrix.c
+SRC += src/rgb-matrix/batuhan-rgb-matrix.c
 endif
 
 # OLED code

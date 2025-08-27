@@ -1,6 +1,7 @@
 /* Copyright 2021 Batuhan Başerdem
  * <baserdem.batuhan@gmail.com> @bbaserdem
  */
+// clang-format off
 #pragma once
 
 /* CONFIG
@@ -60,7 +61,7 @@
 // Tap-hold settings
 #define TAPPING_TERM 250
 #define PERMISSIVE_HOLD
-#define HOLD_ON_OTHER_KEY_PRESS
+// #define HOLD_ON_OTHER_KEY_PRESS
 #define TAP_CODE_DELAY 100
 
 // Backlight settings
@@ -75,26 +76,11 @@
 
 // Audio definitions
 #ifdef AUDIO_ENABLE
-//#   define AUDIO_ENABLE_TONE_MULTIPLEXING
-    // Make findable songs as defaults
-#   ifdef HOROLOGY
-#       define STARTUP_SONG    SONG(HOROLOGY)
-#   endif
-#   ifdef PEOPLE_VULTURES
-#       define GOODBYE_SONG    SONG(PEOPLE_VULTURES)
-#   endif
-#   ifdef NONAGON_INFINITY
-#       define MUSIC_ON_SONG   SONG(NONAGON_INFINITY)
-#   endif
-#   ifdef WAH_WAH
-#       define MUSIC_OFF_SONG  SONG(WAH_WAH)
-#   endif
-    // Audio code expects these to be defined
-#   ifdef BIG_FIG_WASP
-#       define GAME_ON_SONG    SONG(BIG_FIG_WASP)
-#   else
-#       define GAME_ON_SONG    SONG(USSR_ANTHEM)
-#   endif
+#   define STARTUP_SONG    SONG(HOROLOGY)
+#   define GOODBYE_SONG    SONG(PEOPLE_VULTURES)
+#   define MUSIC_ON_SONG   SONG(ROBOT_STOP)
+#   define MUSIC_OFF_SONG  SONG(WAH_WAH)
+#   define GAME_ON_SONG    SONG(BIG_FIG_WASP)
 #   define GAME_OFF_SONG   SONG(POLYGONDWANALAND)
 #endif // AUDIO_ENABLE
 

@@ -184,7 +184,7 @@ After pressing any key on this layer, it automatically returns to the base layer
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
 │Leny │  Å  │  ₿  │  Γ  │  Δ  │  Ω  │   │  Ξ  │  Π  │  Σ  │  Φ  │  Ψ  │TFlip│
 ├─────┼─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┼─────┤
-│     │  ℏ  │ PGP │     │     │  ω  │   │  ξ  │  π  │  σ  │  φ  │  ψ  │     │
+│     │  ℏ  │ PGP │ ... │     │  ω  │   │  ξ  │  π  │  σ  │  φ  │  ψ  │     │
 └─────┴─────┴─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┴─────┴─────┘
                   │EXIT │     │     │   │     │     │Game │
                   └─────┴─────┴─────┘   └─────┴─────┴─────┘
@@ -255,3 +255,5 @@ Exit the layer using the dedicated EXIT button.
 - EXIT button to return to base layer
 
 </details>
+
+## Features

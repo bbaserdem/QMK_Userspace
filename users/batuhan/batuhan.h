@@ -1,41 +1,50 @@
 /* Copyright 2021 Batuhan Başerdem
  * <baserdem.batuhan@gmail.com> @bbaserdem
  */
+// clang-format off
 #pragma once
 #include QMK_KEYBOARD_H
 #include "quantum.h"
 #include "keymap_dvorak.h"
 
-// Import layout
-#include "batuhan-keycodes.h"
-#include "batuhan-layout.h"
+// Import layout and keycodes
+#include "src/batuhan-layout.h"
+#include "src/batuhan-keycodes.h"
 
-// Glyphs and unicode handling
-#include "batuhan-glyphs.h"
+// Macros and glyph handling (includes glyph processing)
+// Glyph handling is now part of macros module
+
+// Color definitions
+#ifdef RGB_MATRIX_ENABLE
+#include "src/batuhan-colors.h"
+#endif // RGB_MATRIX_ENABLE
 
 // Audio from onboard speakers
 #ifdef AUDIO_ENABLE
-#include "batuhan-audio.h"
+#include "src/audio/batuhan-audio.h"
 #endif // AUDIO_ENABLE
 
 // Underglow light using rgb LEDs
 #ifdef RGBLIGHT_ENABLE
-#include "batuhan-rgb-light.h"
+#include "src/rgb-light/batuhan-rgb-light.h"
 #endif // RGBLIGHT_ENABLE
 
 // Keycap light using rgb LEDs
 #ifdef RGB_MATRIX_ENABLE
-#include "batuhan-rgb-matrix.h"
+#include "src/rgb-matrix/batuhan-rgb-matrix.h"
 #endif // RGB_MATRIX_ENABLE
 
 // Rotary encoder - include early for bit definitions
 #ifdef ENCODER_ENABLE
-#include "batuhan-encoder.h"
+#include "src/encoder/batuhan-encoder.h"
 #endif // ENCODER_ENABLE
+
+// Macros
+#include "src/macros/batuhan-macros.h"
 
 // Oled screen
 // #ifdef OLED_ENABLE
-// #include "batuhan-oled.h"
+// #include "src/oled/batuhan-oled.h"
 // #endif // OLED_ENABLE
 
 // Structures to keep runtime/eeprom info on states.
