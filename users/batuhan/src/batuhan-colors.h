@@ -1,0 +1,50 @@
+/* Copyright 2021 Batuhan Başerdem
+ * <baserdem.batuhan@gmail.com> @bbaserdem
+ * 
+ * THIS FILE IS AUTO-GENERATED FROM keymap.yaml
+ * DO NOT EDIT MANUALLY
+ */
+// clang-format off
+#pragma once
+
+#ifdef RGB_MATRIX_ENABLE
+#include "color.h"
+#endif
+
+// Layer color definitions
+#ifdef RGB_MATRIX_ENABLE
+
+#define COLOR_RGB_BASE RGB_OFF
+#define COLOR_HSV_BASE HSV_OFF
+
+#define COLOR_RGB_DVOR RGB_OFF
+#define COLOR_HSV_DVOR HSV_OFF
+
+#define COLOR_RGB_GAME RGB_PURPLE
+#define COLOR_HSV_GAME HSV_PURPLE
+
+#define COLOR_RGB_CHAR RGB_MAGENTA
+#define COLOR_HSV_CHAR HSV_MAGENTA
+
+#define COLOR_RGB_SYMB RGB_CYAN
+#define COLOR_HSV_SYMB HSV_CYAN
+
+#define COLOR_RGB_NUMB RGB_AZURE
+#define COLOR_HSV_NUMB HSV_AZURE
+
+#define COLOR_RGB_NAVI RGB_ORANGE
+#define COLOR_HSV_NAVI HSV_ORANGE
+
+#define COLOR_RGB_FUNC RGB_CORAL
+#define COLOR_HSV_FUNC HSV_CORAL
+
+#define COLOR_RGB_SETT RGB_CHARTREUSE
+#define COLOR_HSV_SETT HSV_CHARTREUSE
+
+#define COLOR_RGB_MOUS RGB_SPRINGGREEN
+#define COLOR_HSV_MOUS HSV_SPRINGGREEN
+
+#define COLOR_RGB_MUSI RGB_GOLD
+#define COLOR_HSV_MUSI HSV_GOLD
+
+#endif // RGB_MATRIX_ENABLE
