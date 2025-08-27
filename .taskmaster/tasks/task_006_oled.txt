@@ -1,0 +1,25 @@
+# Task ID: 6
+# Title: OLED Writer Program (Glyph Drawing)
+# Status: pending
+# Dependencies: None
+# Priority: high
+# Description: Implement OLED image drawing functions for glyph rendering
+# Details:
+Write C/C++ functions to blit image arrays at pixel offsets, handle monochrome (SSD1306, SH1106) and color displays, validate rendering
+
+# Test Strategy:
+
+
+# Subtasks:
+## 1. Implement OLED Image Drawing Functions [pending]
+### Dependencies: None
+### Description: Write reusable C/C++ functions to blit an image array at given pixel offset on screen
+### Details:
+Handle monochrome (SSD1306, SH1106) and color displays with different bits-per-pixel and byte-order
+
+## 2. Test Rendering Engines [pending]
+### Dependencies: None
+### Description: Validate rendering for correct alignment, blank row detection, and scrolling/clipping handling
+### Details:
+
+

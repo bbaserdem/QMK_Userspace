@@ -1,0 +1,17 @@
+# Task ID: 5
+# Title: Create Python Script for README Generation
+# Status: pending
+# Dependencies: 2, 3
+# Priority: medium
+# Description: Develop Python script that generates comprehensive README documentation from YAML keymap data
+# Details:
+Script should generate:
+- ASCII art or Markdown tables showing each layer layout
+- Key legend with descriptions of custom keycodes
+- Layer descriptions and usage instructions
+- Visual representation of the 34-key Ferris Sweep layout
+- Documentation of special features (glyphs, RGB modes, etc.)
+- Maintain existing README structure and styling
+
+# Test Strategy:
+Generate README and verify markdown renders correctly, compare with current README for completeness

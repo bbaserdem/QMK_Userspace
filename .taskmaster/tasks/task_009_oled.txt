@@ -1,0 +1,25 @@
+# Task ID: 9
+# Title: Automation and Batch Processing
+# Status: pending
+# Dependencies: None
+# Priority: low
+# Description: Script end-to-end workflow and document for maintainability
+# Details:
+Automate font extraction, composition, image conversion, header generation. Use Python for image/font handling, Make/CMake for firmware build. Create modular structure
+
+# Test Strategy:
+
+
+# Subtasks:
+## 1. Script End-to-End Workflow [pending]
+### Dependencies: None
+### Description: Automate font extraction, composition, image conversion, and header generation in reproducible script
+### Details:
+Use Python for image/font handling, Make/CMake for firmware build
+
+## 2. Document and Modularize [pending]
+### Dependencies: None
+### Description: Document scripts for maintainability and modularize for easy addition/removal of layouts or glyph sources
+### Details:
+Create repo structure: /glyphs/ for source bmps, /composite/ for layout/zone images, /headers/ for generated .h files, /scripts/ for all automation
+

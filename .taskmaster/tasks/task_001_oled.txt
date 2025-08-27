@@ -1,0 +1,11 @@
+# Task ID: 1
+# Title: Create Master OLED Scripts Launcher
+# Status: pending
+# Dependencies: None
+# Priority: high
+# Description: Create a Python script that launches other scripts in sequence for OLED glyph processing workflow
+# Details:
+Scripts should be in Python and orchestrate the entire workflow from font extraction to header generation
+
+# Test Strategy:
+

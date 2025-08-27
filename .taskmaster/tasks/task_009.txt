@@ -1,0 +1,19 @@
+# Task ID: 9
+# Title: Test Complete Workflow End-to-End
+# Status: pending
+# Dependencies: 8
+# Priority: high
+# Description: Thoroughly test the entire YAML-to-firmware pipeline to ensure everything works correctly
+# Details:
+Testing checklist:
+- Modify YAML and verify changes propagate
+- Test all layers and custom keycodes
+- Verify OLED displays correctly
+- Check RGB lighting behaviors
+- Test encoder functionality if present
+- Verify README generation is accurate
+- Test edge cases and error handling
+- Flash firmware to actual hardware if available
+
+# Test Strategy:
+Create test cases for each component, perform integration testing, and validate on actual hardware

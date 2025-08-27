@@ -1,0 +1,31 @@
+# Task ID: 8
+# Title: Display Adapter Templates
+# Status: pending
+# Dependencies: None
+# Priority: medium
+# Description: Write display configuration templates for different hardware cases
+# Details:
+Support 1×32x128, 2×32x128, 1×64x128, 2×64x128, 135×240 color TFT. Automate layout calculations, dynamic layout selection, color/palette management
+
+# Test Strategy:
+
+
+# Subtasks:
+## 1. Write Display Configuration Templates [pending]
+### Dependencies: None
+### Description: Create templates for each hardware case with automated layout calculations
+### Details:
+Support 1×32x128, 2×32x128, 1×64x128, 2×64x128, 135×240 color TFT. Automate pixel positions and splits
+
+## 2. Dynamic Layout Selection [pending]
+### Dependencies: None
+### Description: Implement code to pick and draw appropriate layout at runtime/compile-time depending on display detected
+### Details:
+
+
+## 3. Add Support for Color TFT [pending]
+### Dependencies: None
+### Description: Segment color/font conversions and palette management if using colored fonts/images
+### Details:
+
+

@@ -1,0 +1,31 @@
+# Task ID: 4
+# Title: Glyph Arrangement and Parsing
+# Status: pending
+# Dependencies: None
+# Priority: high
+# Description: Define keyboard layout variants and compose layout images for all combinations
+# Details:
+Map Dvorak, QWERTY, Turkish-F layouts with Normal/Shifted/AltGr/Shift+AltGr layers for Left/Right/Thumb zones. Generate 32x53px for halves, 32x10px for thumb cluster
+
+# Test Strategy:
+
+
+# Subtasks:
+## 1. Define Keyboard Layout Variants [pending]
+### Dependencies: None
+### Description: Map out layouts: Dvorak, QWERTY, Turkish-F with layers and zones
+### Details:
+Layers: Normal, Shifted, AltGr, Shift+AltGr. Zones: Left half, Right half, Thumb cluster
+
+## 2. Compose/Oversample Layout Images [pending]
+### Dependencies: None
+### Description: Generate composite images for each layout, layer, zone combination
+### Details:
+32x53 pixel composite images for halves with inter-column spacing, 32x10 pixel images for thumb cluster. Programmatically dither/detect empty rows and nudge glyphs for optimal fit
+
+## 3. Generate Sprite Sheets or Individual Images [pending]
+### Dependencies: None
+### Description: Output images for each combination with systematic naming for easy parsing
+### Details:
+
+

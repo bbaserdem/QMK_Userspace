@@ -7,7 +7,7 @@
         "description": "Implement audio features for QMK keyboard with King Gizzard guitar tabs",
         "details": "Add musical audio capabilities to the QMK configuration by collecting guitar tabs and transcribing them into QMK's audio format for playback through the keyboard.",
         "testStrategy": "",
-        "status": "pending",
+        "status": "done",
         "dependencies": [],
         "priority": "medium",
         "subtasks": [
@@ -16,7 +16,7 @@
             "title": "Collect King Gizzard guitar tabs",
             "description": "Gather guitar tabs from King Gizzard songs for transcription",
             "details": "Research and collect guitar tabs that will be suitable for QMK audio playback",
-            "status": "pending",
+            "status": "done",
             "dependencies": [],
             "parentTaskId": 1
           },
@@ -25,21 +25,532 @@
             "title": "Transcribe tabs to QMK format in user_song_list.h",
             "description": "Convert collected guitar tabs into QMK audio format",
             "details": "Transcribe the guitar tabs into QMK's musical note format and add them to user_song_list.h file in the userspace",
-            "status": "pending",
+            "status": "done",
             "dependencies": [],
             "parentTaskId": 1
           }
         ]
+      },
+      {
+        "id": 2,
+        "title": "Design YAML Schema for Keymap",
+        "description": "Create a comprehensive YAML schema that will serve as the single source of truth for all keymap data, including layers, keycodes, metadata, and custom configurations",
+        "details": "Design a YAML structure that supports:\n- Multiple layers (base, raise, lower, function, etc.)\n- Keycodes per position in matrix format\n- Metadata (layer descriptions, key labels, comments)\n- Custom macros and tap-dance configurations\n- OLED display data and Unicode glyph mappings\n- RGB lighting configurations per layer\n- Encoder mappings per layer\n- Any other custom QMK features used in the batuhan userspace",
+        "testStrategy": "Validate the schema by creating example YAML files and loading them with Python's yaml library to ensure proper structure and data integrity",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Define core layer structure in YAML",
+            "description": "Create the basic YAML structure for layer definitions including matrix positions for 34-key layout",
+            "details": "Design YAML structure for:\n- Layer names and IDs\n- 34-key matrix layout (3x5 + 2 thumb keys per half)\n- Support for BASE, CHAR, NAV, NUM, FN layers",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 2
+          },
+          {
+            "id": 2,
+            "title": "Add custom keycode definitions schema",
+            "description": "Design YAML schema for custom keycodes like BU_CYCL, BU_GLPH and macro definitions",
+            "details": "Include support for:\n- Custom keycode enumeration\n- Macro definitions and sequences\n- Tap-dance configurations\n- Combo definitions",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 2
+          },
+          {
+            "id": 3,
+            "title": "Design metadata and documentation fields",
+            "description": "Add YAML fields for documentation, descriptions, and visual representations",
+            "details": "Schema for:\n- Layer descriptions\n- Key labels and aliases\n- Comments and notes\n- Visual layout hints for README generation",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 2
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Convert Current Keymap to YAML",
+        "description": "Migrate existing layout definitions from C code to the new YAML format, preserving all functionality and custom configurations",
+        "details": "Tasks include:\n- Extract current layer definitions from batuhan.c and related files\n- Convert KC_ keycodes to YAML format\n- Preserve all custom keycodes (BU_CYCL, BU_GLPH, etc.)\n- Maintain tap/hold configurations\n- Document any special behaviors or macros\n- Ensure all 34-key Ferris Sweep layout positions are properly mapped\n- Include encoder configurations if present",
+        "testStrategy": "Compare generated C code from YAML against original C code to ensure no functionality is lost",
+        "status": "done",
+        "dependencies": [
+          2
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "Create Python Script for QMK C Code Generation",
+        "description": "Develop Python scripts that read YAML keymap data and generate QMK-compatible C source files",
+        "details": "Create scripts that generate:\n- layout.c with layer definitions and keymap arrays\n- layout.h with constants and declarations\n- keycodes.h with custom keycode definitions\n- Proper QMK matrix layout for Ferris Sweep (34 keys)\n- Support for all QMK features used (tap-dance, combos, etc.)\n- Maintain compatibility with existing batuhan userspace structure",
+        "testStrategy": "Generate C files and compile with qmk compile to ensure syntax correctness and successful firmware build",
+        "status": "done",
+        "dependencies": [
+          2,
+          3
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create generate_layout.py script",
+            "description": "Main script to generate layout.c and layout.h files from YAML",
+            "details": "Script should:\n- Parse YAML keymap file\n- Generate QMK layer arrays\n- Handle custom keycodes\n- Output proper C syntax\n- Include header guards and comments",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 4
+          },
+          {
+            "id": 2,
+            "title": "Create generate_keycodes.py script",
+            "description": "Script to generate custom keycode definitions header file",
+            "details": "Generate:\n- Keycode enum definitions\n- Macro function declarations\n- Tap-dance enum if needed\n- Maintain compatibility with existing BU_ prefix keycodes",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 4
+          },
+          {
+            "id": 3,
+            "title": "Add template support for C code generation",
+            "description": "Use Jinja2 or similar templating for cleaner C code generation",
+            "details": "Create templates for:\n- Layer array definitions\n- Header file structure\n- Function implementations\n- Proper formatting and indentation",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 4
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Create Python Script for README Generation",
+        "description": "Develop Python script that generates comprehensive README documentation from YAML keymap data",
+        "details": "Script should generate:\n- ASCII art or Markdown tables showing each layer layout\n- Key legend with descriptions of custom keycodes\n- Layer descriptions and usage instructions\n- Visual representation of the 34-key Ferris Sweep layout\n- Documentation of special features (glyphs, RGB modes, etc.)\n- Maintain existing README structure and styling",
+        "testStrategy": "Generate README and verify markdown renders correctly, compare with current README for completeness",
+        "status": "pending",
+        "dependencies": [
+          2,
+          3
+        ],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Create Python Script for OLED/Graphics Generation",
+        "description": "Develop Python script that generates OLED display code and glyph definitions from YAML data",
+        "details": "Script should generate:\n- Glyph arrays for OLED display\n- Layer-specific display configurations\n- Unicode character mappings\n- Font data if needed\n- Integration with existing OLED display system\n- Support for the custom glyph system already implemented",
+        "testStrategy": "Generate OLED code and verify it compiles and displays correctly on hardware or simulator",
+        "status": "cancelled",
+        "dependencies": [
+          2,
+          3
+        ],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Integrate Scripts with Build System",
+        "description": "Set up automated build pipeline that regenerates all artifacts from YAML before compilation",
+        "details": "Implementation tasks:\n- Create Makefile targets or shell scripts for generation\n- Integrate with qmk compile workflow\n- Add pre-build hooks to regenerate files\n- Set up proper file paths and dependencies\n- Ensure generated files are in correct locations\n- Add .gitignore entries for generated files\n- Create build documentation",
+        "testStrategy": "Run full build pipeline and verify firmware compiles successfully with generated files",
+        "status": "done",
+        "dependencies": [
+          4,
+          5,
+          6
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create Makefile targets for generation",
+            "description": "Add Make targets to trigger YAML to C generation before build",
+            "details": "Implement:\n- 'make generate' target\n- Auto-generation before 'qmk compile'\n- Dependency tracking for YAML changes\n- Clean targets for generated files",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 7
+          },
+          {
+            "id": 2,
+            "title": "Set up pre-commit hooks",
+            "description": "Configure git hooks to regenerate files when YAML changes",
+            "details": "Create hooks for:\n- Pre-commit regeneration check\n- YAML validation\n- Generated file consistency\n- Optional: CI/CD integration",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 7
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "title": "Refactor and Clean Up Legacy Code",
+        "description": "Remove or deprecate manual keymap files and update all references to use generated files",
+        "details": "Tasks include:\n- Mark old layout files as deprecated\n- Add headers indicating files are auto-generated\n- Update include paths in source files\n- Clean up unused code\n- Update rules.mk if needed\n- Ensure backward compatibility where necessary\n- Document the new workflow in code comments",
+        "testStrategy": "Build firmware and verify no functionality is broken, run any existing tests",
+        "status": "pending",
+        "dependencies": [
+          7
+        ],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Test Complete Workflow End-to-End",
+        "description": "Thoroughly test the entire YAML-to-firmware pipeline to ensure everything works correctly",
+        "details": "Testing checklist:\n- Modify YAML and verify changes propagate\n- Test all layers and custom keycodes\n- Verify OLED displays correctly\n- Check RGB lighting behaviors\n- Test encoder functionality if present\n- Verify README generation is accurate\n- Test edge cases and error handling\n- Flash firmware to actual hardware if available",
+        "testStrategy": "Create test cases for each component, perform integration testing, and validate on actual hardware",
+        "status": "pending",
+        "dependencies": [
+          8
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Add Advanced Features and Extensions",
+        "description": "Extend the script functionality to support additional formats and features",
+        "details": "Optional enhancements:\n- Export to QMK Configurator JSON format\n- Export to KLE (Keyboard Layout Editor) format\n- Support for multiple keyboards from single YAML\n- Validation and linting of YAML files\n- GUI tool for editing YAML visually\n- Support for conditional compilation\n- Integration with CI/CD pipelines\n- Auto-generation of test files",
+        "testStrategy": "Test each new feature independently and ensure backward compatibility",
+        "status": "pending",
+        "dependencies": [
+          9
+        ],
+        "priority": "low",
+        "subtasks": []
       }
     ],
     "metadata": {
       "currentId": 0,
       "created": "2025-08-24T21:27:26.944Z",
       "description": "Tasks for master context",
-      "updated": "2025-08-24T21:27:26.945Z"
+      "updated": "2025-08-26T18:17:31.104Z"
     }
   },
   "config": {
     "activeTag": "master"
+  },
+  "oled": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Create Master OLED Scripts Launcher",
+        "description": "Create a Python script that launches other scripts in sequence for OLED glyph processing workflow",
+        "details": "Scripts should be in Python and orchestrate the entire workflow from font extraction to header generation",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 2,
+        "title": "Extract LanaPixel Glyphs",
+        "description": "Download, prepare and extract LanaPixel font glyphs as individual 8x11 BMP files",
+        "details": "Process includes downloading font file (TTF/OTB/BDF), converting/rasterizing at 8x11 pixels per glyph, and batch exporting with proper naming",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Download and Prepare LanaPixel Font",
+            "description": "Download the font file (TTF/OTB/BDF) and convert/rasterize at 8x11 pixels per glyph if necessary",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 2
+          },
+          {
+            "id": 2,
+            "title": "Batch Export Glyphs",
+            "description": "Use font processing tool (monobit, FontForge) to script extraction of each glyph to individual 8x11 BMP file",
+            "details": "Name files by Unicode or intended keycode for easier mapping",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 2
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Create and Fill Missing/Custom Glyphs",
+        "description": "Identify required non-standard glyphs and create custom designs for missing symbols",
+        "details": "List special keys and symbols (dead keys, Insert, End, Home, PgUp, PgDn), check extracted glyphs for missing ones, design as 8x11 BMP files",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [
+          "2"
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Identify Required Non-Standard Glyphs",
+            "description": "List all special keys and symbols needed (dead keys, Insert, End, Home, PgUp, PgDn, etc.)",
+            "details": "Check extracted glyphs for any missing ones",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 3
+          },
+          {
+            "id": 2,
+            "title": "Draw/Design Custom Glyphs",
+            "description": "Design missing glyphs as 8x11 BMP files using a pixel editor or programmatic method",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 3
+          },
+          {
+            "id": 3,
+            "title": "Integrate Custom Glyphs",
+            "description": "Add custom glyph files into the glyph directory, ensuring filename compatibility with automated processing scripts",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 3
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Glyph Arrangement and Parsing",
+        "description": "Define keyboard layout variants and compose layout images for all combinations",
+        "details": "Map Dvorak, QWERTY, Turkish-F layouts with Normal/Shifted/AltGr/Shift+AltGr layers for Left/Right/Thumb zones. Generate 32x53px for halves, 32x10px for thumb cluster",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [
+          "3"
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Define Keyboard Layout Variants",
+            "description": "Map out layouts: Dvorak, QWERTY, Turkish-F with layers and zones",
+            "details": "Layers: Normal, Shifted, AltGr, Shift+AltGr. Zones: Left half, Right half, Thumb cluster",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 4
+          },
+          {
+            "id": 2,
+            "title": "Compose/Oversample Layout Images",
+            "description": "Generate composite images for each layout, layer, zone combination",
+            "details": "32x53 pixel composite images for halves with inter-column spacing, 32x10 pixel images for thumb cluster. Programmatically dither/detect empty rows and nudge glyphs for optimal fit",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 4
+          },
+          {
+            "id": 3,
+            "title": "Generate Sprite Sheets or Individual Images",
+            "description": "Output images for each combination with systematic naming for easy parsing",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 4
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Header File Generation (.h)",
+        "description": "Parse images into PROGMEM arrays and generate optimized C headers",
+        "details": "Convert composite images to byte arrays for PROGMEM storage, auto-generate C headers with macros and metadata for fast lookup",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [
+          "4"
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Parse Images into Progmem Arrays",
+            "description": "Convert each composite image into byte arrays suitable for storage in PROGMEM",
+            "details": "Create script to auto-generate C headers defining arrays (one array per layout/layer/zone)",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 5
+          },
+          {
+            "id": 2,
+            "title": "Optimize Array Representation",
+            "description": "Add macros or metadata for fast lookup and rendering",
+            "details": "Include width, height, encoding order as needed",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 5
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "OLED Writer Program (Glyph Drawing)",
+        "description": "Implement OLED image drawing functions for glyph rendering",
+        "details": "Write C/C++ functions to blit image arrays at pixel offsets, handle monochrome (SSD1306, SH1106) and color displays, validate rendering",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [
+          "5"
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement OLED Image Drawing Functions",
+            "description": "Write reusable C/C++ functions to blit an image array at given pixel offset on screen",
+            "details": "Handle monochrome (SSD1306, SH1106) and color displays with different bits-per-pixel and byte-order",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 6
+          },
+          {
+            "id": 2,
+            "title": "Test Rendering Engines",
+            "description": "Validate rendering for correct alignment, blank row detection, and scrolling/clipping handling",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 6
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Refactor Status/Settings Display",
+        "description": "Audit and replace old display code with custom font rendering",
+        "details": "Identify areas showing RGB, WPM, modifiers, top layer, encoder settings. Replace built-in font calls with custom glyph drawing. Modularize display code",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [
+          "6"
+        ],
+        "priority": "medium",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Audit Old Display Code",
+            "description": "Identify all areas showing settings: RGB, WPM, modifiers, top layer, encoder, etc.",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 7
+          },
+          {
+            "id": 2,
+            "title": "Swap In Custom Font Rendering",
+            "description": "Replace built-in font calls with custom glyph drawing functions where appropriate",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 7
+          },
+          {
+            "id": 3,
+            "title": "Standardize Display Updates",
+            "description": "Modularize display code for easy adaptation to new layouts, custom graphics, or information hierarchy",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 7
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "title": "Display Adapter Templates",
+        "description": "Write display configuration templates for different hardware cases",
+        "details": "Support 1×32x128, 2×32x128, 1×64x128, 2×64x128, 135×240 color TFT. Automate layout calculations, dynamic layout selection, color/palette management",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [
+          "6"
+        ],
+        "priority": "medium",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Write Display Configuration Templates",
+            "description": "Create templates for each hardware case with automated layout calculations",
+            "details": "Support 1×32x128, 2×32x128, 1×64x128, 2×64x128, 135×240 color TFT. Automate pixel positions and splits",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 8
+          },
+          {
+            "id": 2,
+            "title": "Dynamic Layout Selection",
+            "description": "Implement code to pick and draw appropriate layout at runtime/compile-time depending on display detected",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 8
+          },
+          {
+            "id": 3,
+            "title": "Add Support for Color TFT",
+            "description": "Segment color/font conversions and palette management if using colored fonts/images",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 8
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "title": "Automation and Batch Processing",
+        "description": "Script end-to-end workflow and document for maintainability",
+        "details": "Automate font extraction, composition, image conversion, header generation. Use Python for image/font handling, Make/CMake for firmware build. Create modular structure",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [],
+        "priority": "low",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Script End-to-End Workflow",
+            "description": "Automate font extraction, composition, image conversion, and header generation in reproducible script",
+            "details": "Use Python for image/font handling, Make/CMake for firmware build",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 9
+          },
+          {
+            "id": 2,
+            "title": "Document and Modularize",
+            "description": "Document scripts for maintainability and modularize for easy addition/removal of layouts or glyph sources",
+            "details": "Create repo structure: /glyphs/ for source bmps, /composite/ for layout/zone images, /headers/ for generated .h files, /scripts/ for all automation",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 9
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "created": "2025-08-26T15:47:19.215Z",
+      "updated": "2025-08-27T00:02:17.786Z",
+      "description": "Tag created on 8/26/2025"
+    }
+  },
+  "procedural": {
+    "tasks": [],
+    "metadata": {
+      "created": "2025-08-26T16:15:18.852Z",
+      "updated": "2025-08-26T16:15:18.852Z",
+      "description": "Tag created on 8/26/2025"
+    }
   }
 }

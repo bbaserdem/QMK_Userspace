@@ -1,0 +1,50 @@
+# Task ID: 2
+# Title: Design YAML Schema for Keymap
+# Status: pending
+# Dependencies: None
+# Priority: high
+# Description: Create a comprehensive YAML schema that will serve as the single source of truth for all keymap data, including layers, keycodes, metadata, and custom configurations
+# Details:
+Design a YAML structure that supports:
+- Multiple layers (base, raise, lower, function, etc.)
+- Keycodes per position in matrix format
+- Metadata (layer descriptions, key labels, comments)
+- Custom macros and tap-dance configurations
+- OLED display data and Unicode glyph mappings
+- RGB lighting configurations per layer
+- Encoder mappings per layer
+- Any other custom QMK features used in the batuhan userspace
+
+# Test Strategy:
+Validate the schema by creating example YAML files and loading them with Python's yaml library to ensure proper structure and data integrity
+
+# Subtasks:
+## 1. Define core layer structure in YAML [pending]
+### Dependencies: None
+### Description: Create the basic YAML structure for layer definitions including matrix positions for 34-key layout
+### Details:
+Design YAML structure for:
+- Layer names and IDs
+- 34-key matrix layout (3x5 + 2 thumb keys per half)
+- Support for BASE, CHAR, NAV, NUM, FN layers
+
+## 2. Add custom keycode definitions schema [pending]
+### Dependencies: None
+### Description: Design YAML schema for custom keycodes like BU_CYCL, BU_GLPH and macro definitions
+### Details:
+Include support for:
+- Custom keycode enumeration
+- Macro definitions and sequences
+- Tap-dance configurations
+- Combo definitions
+
+## 3. Design metadata and documentation fields [pending]
+### Dependencies: None
+### Description: Add YAML fields for documentation, descriptions, and visual representations
+### Details:
+Schema for:
+- Layer descriptions
+- Key labels and aliases
+- Comments and notes
+- Visual layout hints for README generation
+

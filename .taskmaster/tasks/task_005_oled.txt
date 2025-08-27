@@ -1,0 +1,25 @@
+# Task ID: 5
+# Title: Header File Generation (.h)
+# Status: pending
+# Dependencies: None
+# Priority: high
+# Description: Parse images into PROGMEM arrays and generate optimized C headers
+# Details:
+Convert composite images to byte arrays for PROGMEM storage, auto-generate C headers with macros and metadata for fast lookup
+
+# Test Strategy:
+
+
+# Subtasks:
+## 1. Parse Images into Progmem Arrays [pending]
+### Dependencies: None
+### Description: Convert each composite image into byte arrays suitable for storage in PROGMEM
+### Details:
+Create script to auto-generate C headers defining arrays (one array per layout/layer/zone)
+
+## 2. Optimize Array Representation [pending]
+### Dependencies: None
+### Description: Add macros or metadata for fast lookup and rendering
+### Details:
+Include width, height, encoding order as needed
+

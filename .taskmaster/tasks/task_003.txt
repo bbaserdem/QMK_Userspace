@@ -1,0 +1,18 @@
+# Task ID: 3
+# Title: Convert Current Keymap to YAML
+# Status: pending
+# Dependencies: 2
+# Priority: high
+# Description: Migrate existing layout definitions from C code to the new YAML format, preserving all functionality and custom configurations
+# Details:
+Tasks include:
+- Extract current layer definitions from batuhan.c and related files
+- Convert KC_ keycodes to YAML format
+- Preserve all custom keycodes (BU_CYCL, BU_GLPH, etc.)
+- Maintain tap/hold configurations
+- Document any special behaviors or macros
+- Ensure all 34-key Ferris Sweep layout positions are properly mapped
+- Include encoder configurations if present
+
+# Test Strategy:
+Compare generated C code from YAML against original C code to ensure no functionality is lost

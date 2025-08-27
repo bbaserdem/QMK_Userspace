@@ -1,0 +1,25 @@
+# Task ID: 2
+# Title: Extract LanaPixel Glyphs
+# Status: pending
+# Dependencies: None
+# Priority: high
+# Description: Download, prepare and extract LanaPixel font glyphs as individual 8x11 BMP files
+# Details:
+Process includes downloading font file (TTF/OTB/BDF), converting/rasterizing at 8x11 pixels per glyph, and batch exporting with proper naming
+
+# Test Strategy:
+
+
+# Subtasks:
+## 1. Download and Prepare LanaPixel Font [pending]
+### Dependencies: None
+### Description: Download the font file (TTF/OTB/BDF) and convert/rasterize at 8x11 pixels per glyph if necessary
+### Details:
+
+
+## 2. Batch Export Glyphs [pending]
+### Dependencies: None
+### Description: Use font processing tool (monobit, FontForge) to script extraction of each glyph to individual 8x11 BMP file
+### Details:
+Name files by Unicode or intended keycode for easier mapping
+

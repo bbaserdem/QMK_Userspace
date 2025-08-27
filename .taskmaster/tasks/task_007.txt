@@ -1,0 +1,40 @@
+# Task ID: 7
+# Title: Integrate Scripts with Build System
+# Status: pending
+# Dependencies: 4, 5, 6
+# Priority: high
+# Description: Set up automated build pipeline that regenerates all artifacts from YAML before compilation
+# Details:
+Implementation tasks:
+- Create Makefile targets or shell scripts for generation
+- Integrate with qmk compile workflow
+- Add pre-build hooks to regenerate files
+- Set up proper file paths and dependencies
+- Ensure generated files are in correct locations
+- Add .gitignore entries for generated files
+- Create build documentation
+
+# Test Strategy:
+Run full build pipeline and verify firmware compiles successfully with generated files
+
+# Subtasks:
+## 1. Create Makefile targets for generation [pending]
+### Dependencies: None
+### Description: Add Make targets to trigger YAML to C generation before build
+### Details:
+Implement:
+- 'make generate' target
+- Auto-generation before 'qmk compile'
+- Dependency tracking for YAML changes
+- Clean targets for generated files
+
+## 2. Set up pre-commit hooks [pending]
+### Dependencies: None
+### Description: Configure git hooks to regenerate files when YAML changes
+### Details:
+Create hooks for:
+- Pre-commit regeneration check
+- YAML validation
+- Generated file consistency
+- Optional: CI/CD integration
+

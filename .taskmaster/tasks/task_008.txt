@@ -1,0 +1,18 @@
+# Task ID: 8
+# Title: Refactor and Clean Up Legacy Code
+# Status: pending
+# Dependencies: 7
+# Priority: medium
+# Description: Remove or deprecate manual keymap files and update all references to use generated files
+# Details:
+Tasks include:
+- Mark old layout files as deprecated
+- Add headers indicating files are auto-generated
+- Update include paths in source files
+- Clean up unused code
+- Update rules.mk if needed
+- Ensure backward compatibility where necessary
+- Document the new workflow in code comments
+
+# Test Strategy:
+Build firmware and verify no functionality is broken, run any existing tests

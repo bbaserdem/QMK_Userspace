@@ -1,0 +1,50 @@
+# Task ID: 4
+# Title: Create Python Script for QMK C Code Generation
+# Status: pending
+# Dependencies: 2, 3
+# Priority: high
+# Description: Develop Python scripts that read YAML keymap data and generate QMK-compatible C source files
+# Details:
+Create scripts that generate:
+- layout.c with layer definitions and keymap arrays
+- layout.h with constants and declarations
+- keycodes.h with custom keycode definitions
+- Proper QMK matrix layout for Ferris Sweep (34 keys)
+- Support for all QMK features used (tap-dance, combos, etc.)
+- Maintain compatibility with existing batuhan userspace structure
+
+# Test Strategy:
+Generate C files and compile with qmk compile to ensure syntax correctness and successful firmware build
+
+# Subtasks:
+## 1. Create generate_layout.py script [pending]
+### Dependencies: None
+### Description: Main script to generate layout.c and layout.h files from YAML
+### Details:
+Script should:
+- Parse YAML keymap file
+- Generate QMK layer arrays
+- Handle custom keycodes
+- Output proper C syntax
+- Include header guards and comments
+
+## 2. Create generate_keycodes.py script [pending]
+### Dependencies: None
+### Description: Script to generate custom keycode definitions header file
+### Details:
+Generate:
+- Keycode enum definitions
+- Macro function declarations
+- Tap-dance enum if needed
+- Maintain compatibility with existing BU_ prefix keycodes
+
+## 3. Add template support for C code generation [pending]
+### Dependencies: None
+### Description: Use Jinja2 or similar templating for cleaner C code generation
+### Details:
+Create templates for:
+- Layer array definitions
+- Header file structure
+- Function implementations
+- Proper formatting and indentation
+

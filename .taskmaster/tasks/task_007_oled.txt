@@ -1,0 +1,31 @@
+# Task ID: 7
+# Title: Refactor Status/Settings Display
+# Status: pending
+# Dependencies: None
+# Priority: medium
+# Description: Audit and replace old display code with custom font rendering
+# Details:
+Identify areas showing RGB, WPM, modifiers, top layer, encoder settings. Replace built-in font calls with custom glyph drawing. Modularize display code
+
+# Test Strategy:
+
+
+# Subtasks:
+## 1. Audit Old Display Code [pending]
+### Dependencies: None
+### Description: Identify all areas showing settings: RGB, WPM, modifiers, top layer, encoder, etc.
+### Details:
+
+
+## 2. Swap In Custom Font Rendering [pending]
+### Dependencies: None
+### Description: Replace built-in font calls with custom glyph drawing functions where appropriate
+### Details:
+
+
+## 3. Standardize Display Updates [pending]
+### Dependencies: None
+### Description: Modularize display code for easy adaptation to new layouts, custom graphics, or information hierarchy
+### Details:
+
+
