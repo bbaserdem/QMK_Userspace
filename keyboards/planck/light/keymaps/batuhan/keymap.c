@@ -56,9 +56,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     // Number layer: left_half
     [_NUMB] = LAYOUT_ortho_4x12_wrapper(
-        _NU1_1_,_NU1_5_,___6___,
-        _NU2_1_,_NU2_5_,___6___,
-        _NU3_1_,_NU3_5_,___6___,
+        _NU1_5_,_NU1_1_,___6___,
+        _NU2_5_,_NU2_1_,___6___,
+        _NU3_5_,_NU3_1_,___6___,
         ___3___,_NU4_3_,___6___
     ),
     // Navigation layer: right_half
