@@ -349,7 +349,7 @@ enum userspace_layers {
  *             │ Lft │ Mid │Right│
  *             └─────┴─────┴─────┘
  */
-#define _MO1_5_ KC_ACL0,MS_BTN6,MS_BTN7,MS_BTN8,KC_ACL2
+#define _MO1_5_ MS_ACL0,MS_BTN6,MS_BTN7,MS_BTN8,MS_ACL2
 #define _MO1_6_ KC_NO,  _MO1_5_
 #define _MO2_5_ MS_LEFT,MS_DOWN,MS_UP,  MS_RGHT,MS_BTN4
 #define _MO2_6_ KC_NO,  _MO2_5_

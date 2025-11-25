@@ -76,6 +76,10 @@
 
 // Audio definitions
 #ifdef AUDIO_ENABLE
+#   undef STARTUP_SONG
+#   undef GOODBYE_SONG
+#   undef MUSIC_ON_SONG
+#   undef MUSIC_OFF_SONG
 #   define STARTUP_SONG    SONG(HOROLOGY)
 #   define GOODBYE_SONG    SONG(PEOPLE_VULTURES)
 #   define MUSIC_ON_SONG   SONG(ROBOT_STOP)
@@ -95,6 +99,7 @@
 
 // For underglow rgb leds
 #ifdef RGBLIGHT_ENABLE
+#   undef RGBLIGHT_DEFAULT_MODE
 #   define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_SWIRL
 #   define RGBLIGHT_MAX_LAYERS 9
 #   define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
@@ -109,6 +114,7 @@
 
 // For per-key rgb leds
 #ifdef RGB_MATRIX_ENABLE
+#   undef RGB_MATRIX_DEFAULT_MODE
 //  Settings
 #   define RGB_MATRIX_SLEEP
 #   define RGB_MATRIX_KEYRELEASES
