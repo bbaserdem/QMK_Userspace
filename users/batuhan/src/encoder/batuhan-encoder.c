@@ -98,30 +98,30 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             switch (this_number) {
                 case 0: // Move mouse on horizontal axis
                     if (clockwise) {
-                        tap_code(KC_MS_R);
+                        tap_code(MS_RGHT);
                     } else {
-                        tap_code(KC_MS_L);
+                        tap_code(MS_LEFT);
                     }
                     break;
                 case 1: // Move mouse on vertical axis
                     if (clockwise) {
-                        tap_code(KC_MS_D);
+                        tap_code(MS_DOWN);
                     } else {
-                        tap_code(KC_MS_U);
+                        tap_code(MS_UP);
                     }
                     break;
                 case 2: // Move mouse wheel on vertical axis
                     if (clockwise) {
-                        tap_code(KC_WH_D);
+                        tap_code(MS_WHLD);
                     } else {
-                        tap_code(KC_WH_U);
+                        tap_code(MS_WHLU);
                     }
                     break;
                 case 3: // Move mouse on horizontal axis
                     if (clockwise) {
-                        tap_code(KC_WH_R);
+                        tap_code(MS_WHLR);
                     } else {
-                        tap_code(KC_WH_L);
+                        tap_code(MS_WHLL);
                     }
                     break;
                 default:
@@ -235,14 +235,14 @@ void encoder_click_action(uint8_t index) {
             }
             switch (this_number) {
                 case 0: // Left click
-                    tap_code16(KC_BTN1);
+                    tap_code16(MS_BTN1);
                     break;
                 case 1: // Right click
-                    tap_code16(KC_BTN3);
+                    tap_code16(MS_BTN3);
                     break;
                 case 2:
                 case 3: // Middle click
-                    tap_code16(KC_BTN2);
+                    tap_code16(MS_BTN2);
                     break;
             }
             break;

@@ -60,9 +60,12 @@
 
 // Tap-hold settings
 #define TAPPING_TERM 250
+#ifdef TAP_CODE_DELAY
+#   undef TAP_CODE_DELAY
+#endif
+#define TAP_CODE_DELAY 20
 #define PERMISSIVE_HOLD
-// #define HOLD_ON_OTHER_KEY_PRESS
-#define TAP_CODE_DELAY 100
+#define TAPPING_FORCE_HOLD
 
 // Backlight settings
 #ifdef BACKLIGHT_ENABLE

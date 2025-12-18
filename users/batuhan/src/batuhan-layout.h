@@ -80,6 +80,13 @@ enum userspace_layers {
  *                   └─set─┴─nav─┴─sym─┘   └─num─┴─fun─┴─mou─┘
  * The thing about this layout is that these will fit most boards I have.
  */
+// Row 0; number row
+#define _BL0_1_ DV_LBRC
+#define _BL0_5_ KC_1,   KC_2,   KC_3,   KC_4,   KC_5
+#define _BR0_5_ KC_6,   KC_7,   KC_8,   KC_9,   KC_0
+#define _BR0_1_ DV_RBRC
+#define _BL0_6_ _BL0_1_,_BL0_5_
+#define _BR0_6_ _BR0_5_,_BR0_1_
 // Row 1
 #define _BL1_1_ DV_SLSH
 #define _BL1_5_ DV_QUOT,DV_COMM,DV_DOT, DV_P,   DV_Y
@@ -117,6 +124,13 @@ enum userspace_layers {
  *                   │ Del │ Tab │ Spc │   │ Ent │ Esc │ Bks │
  *                   └─set─┴─nav─┴─sym─┘   └─num─┴─fun─┴─mou─┘
  */
+// Row 0; number row
+#define _DL0_1_ KC_LBRC
+#define _DL0_5_ KC_1,   KC_2,   KC_3,   KC_4,   KC_5
+#define _DR0_5_ KC_6,   KC_7,   KC_8,   KC_9,   KC_0
+#define _DR0_1_ KC_RBRC
+#define _DL0_6_ _BL0_1_,_BL0_5_
+#define _DR0_6_ _BR0_5_,_BR0_1_
 // Row 1
 #define _DL1_1_ KC_SLSH
 #define _DL1_5_ KC_QUOT,KC_COMM,KC_DOT, KC_P,   KC_Y
